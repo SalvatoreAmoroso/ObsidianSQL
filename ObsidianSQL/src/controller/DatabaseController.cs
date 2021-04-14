@@ -1,14 +1,13 @@
-﻿using ObsidianSQL.library;
-using ObsidianSQL.library.controller;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ObsidianSQL.server.http;
 
-namespace ObisidanSQL.impl.mysql.controller
+namespace ObsidianSQL.server.controller
 {
-    public class DatabaseController : IDatabaseController
+    public class DatabaseController : IController
     {
         public IResponse GetResponse(IRequest request)
         {
