@@ -37,12 +37,12 @@ namespace ObsidianSQL.server.src
 
             //Manage Request
             //TODO: Manage Exception Handling
-            var responseDTO = _router.Evaluate(new Request(request));
+            //var responseDTO = _router.Evaluate(new Request(request));
 
             //Create Response
             var response = context.Response;
 
-            var responseBuffer = Encoding.UTF8.GetBytes(responseDTO.ResponseText);
+            var responseBuffer = Encoding.UTF8.GetBytes("Test"/*responseDTO.ResponseText*/);
 
             //Write Response
             using var output = response.OutputStream;
