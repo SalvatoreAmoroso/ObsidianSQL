@@ -3,6 +3,8 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>ObsidianSQL.server</AssemblyName>
+    <RootNamespace>ObsidianSQL.server</RootNamespace>
   </PropertyGroup>
 
 </Project>

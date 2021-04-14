@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ObsidianSQL.src.controller
+namespace ObsidianSQL.server.src.controller
 {
     class ExampleController : IRouteHandler
     {

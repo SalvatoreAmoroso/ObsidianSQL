@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ObsidianSQL.src.controller;
+using ObsidianSQL.server.src.controller;
 
-namespace ObsidianSQL.src
+namespace ObsidianSQL.server.src
 {
     class ObsidianSQL : IDisposable
     {

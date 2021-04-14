@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ObsidianSQL.src
+namespace ObsidianSQL.server.src
 {
     class Response
     {

@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ObsidianSQL.src
+namespace ObsidianSQL.server.src
 {
     class Request
     {

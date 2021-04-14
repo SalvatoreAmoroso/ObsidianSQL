@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ObsidianSQL.src.exceptions;
+using ObsidianSQL.server.src.exceptions;
 
-namespace ObsidianSQL.src
+namespace ObsidianSQL.server.src
 {
     class Router
     {

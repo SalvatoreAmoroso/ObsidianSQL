@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace ObsidianSQL.server.src
 {
-    interface IRouteHandler
+    class Class1
     {
-        public Response GetResponse();
     }
 }

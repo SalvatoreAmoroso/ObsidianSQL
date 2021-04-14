@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 
-namespace ObsidianSQL.src
+namespace ObsidianSQL.server.src
 {
     class RequestListener : IDisposable
     {

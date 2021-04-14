@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObsidianSQL", "ObsidianSQL.csproj", "{2F9BAAFA-DB59-4A45-B285-FEDE5D75360C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObsidianSQL.server", "ObsidianSQL.server.csproj", "{2F9BAAFA-DB59-4A45-B285-FEDE5D75360C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObsidianSQL.library", "..\ObsidianSQL.library\ObsidianSQL.library.csproj", "{50AD4BBC-11AB-4B8A-B7D4-4A3D1038656E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObisidanSQL.impl.mysql", "..\ObisidanSQL.impl.mysql\ObisidanSQL.impl.mysql.csproj", "{404A17CA-91CF-4774-8364-054EA2A28B86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{2F9BAAFA-DB59-4A45-B285-FEDE5D75360C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F9BAAFA-DB59-4A45-B285-FEDE5D75360C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F9BAAFA-DB59-4A45-B285-FEDE5D75360C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50AD4BBC-11AB-4B8A-B7D4-4A3D1038656E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50AD4BBC-11AB-4B8A-B7D4-4A3D1038656E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50AD4BBC-11AB-4B8A-B7D4-4A3D1038656E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50AD4BBC-11AB-4B8A-B7D4-4A3D1038656E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{404A17CA-91CF-4774-8364-054EA2A28B86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{404A17CA-91CF-4774-8364-054EA2A28B86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{404A17CA-91CF-4774-8364-054EA2A28B86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{404A17CA-91CF-4774-8364-054EA2A28B86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

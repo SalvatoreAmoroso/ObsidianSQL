@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ObsidianSQL.src
+namespace ObsidianSQL.server.src
 {
     class Program
     {

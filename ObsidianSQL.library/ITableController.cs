@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ObsidianSQL.server.src
+namespace ObsidianSQL.library
 {
-    interface IRouteHandler
+    interface ITableController
     {
-        public Response GetResponse();
     }
 }
