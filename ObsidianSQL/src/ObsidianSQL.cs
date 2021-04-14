@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ObsidianSQL.server.src.controller;
+using ObsidianSQL.library.controller;
+using ObisidanSQL.impl.mysql.controller;
 
 namespace ObsidianSQL.server.src
 {
@@ -28,8 +29,8 @@ namespace ObsidianSQL.server.src
         
         private void ConfigureRouter()
         {
-            _router.RegisterRoute(new Route(new Uri("http://lol.de/wtf"), new ExampleController()));
-            _router.RegisterRoute(new Route(new Uri("http://lol.de/rofl"), new ExampleController()));
+            _router.RegisterRoute(new Route(new Uri("http://lol.de/wtf"), new DatabaseController()));
+            _router.RegisterRoute(new Route(new Uri("http://lol.de/rofl"), new DatabaseController()));
         }
     }
 }

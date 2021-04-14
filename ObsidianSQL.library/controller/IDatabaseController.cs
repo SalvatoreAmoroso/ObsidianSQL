@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ObsidianSQL.library
+namespace ObsidianSQL.library.controller
 {
-    interface ITableController
+    public interface IDatabaseController : IController
     {
     }
 }

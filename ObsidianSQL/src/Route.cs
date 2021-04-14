@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ObsidianSQL.library.controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,9 @@ namespace ObsidianSQL.server.src
     {
         public readonly Uri Url;
 
-        public readonly IRouteHandler RouteHandler;
+        public readonly IController RouteHandler;
 
-        public Route(Uri url, IRouteHandler routeHandler)
+        public Route(Uri url, IController routeHandler)
         {
             Url = url;
             RouteHandler = routeHandler;

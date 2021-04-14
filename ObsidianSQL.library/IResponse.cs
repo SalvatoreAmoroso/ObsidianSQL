@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ObsidianSQL.server.src
+namespace ObsidianSQL.library
 {
-    class Class1
+    public interface IResponse
     {
+        public string ResponseText { get; set; }
     }
 }

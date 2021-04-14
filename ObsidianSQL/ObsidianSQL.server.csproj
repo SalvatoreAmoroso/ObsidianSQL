@@ -7,4 +7,9 @@
     <RootNamespace>ObsidianSQL.server</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ObisidanSQL.impl.mysql\ObisidanSQL.impl.mysql.csproj" />
+    <ProjectReference Include="..\ObsidianSQL.library\ObsidianSQL.library.csproj" />
+  </ItemGroup>
+
 </Project>
