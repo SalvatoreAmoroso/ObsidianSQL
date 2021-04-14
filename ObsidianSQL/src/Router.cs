@@ -21,6 +21,14 @@ namespace ObsidianSQL.src
             _routes.Add(route);
         }
 
+        public void RegisterRoute(ICollection<Route> routes)
+        {
+            foreach (var route in routes)
+            {
+                _routes.Add(route);
+            }
+        }
+
         public void RemoveRoute(Route route)
         {
             _routes.Remove(route);
