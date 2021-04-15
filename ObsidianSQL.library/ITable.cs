@@ -4,6 +4,6 @@ namespace ObsidianSQL.library
     {
         public string Name { get; set; }
         public ITableColumn[] Columns { get; }
-        public string Data { get; set; }
+        public ITableRow[] GetData(int start, int end);
     }
 }
