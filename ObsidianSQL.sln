@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObsidianSQL.server", "ObsidianSQL\ObsidianSQL.server.csproj", "{2F9BAAFA-DB59-4A45-B285-FEDE5D75360C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObsidianSQL.library", "ObsidianSQL.library\ObsidianSQL.library.csproj", "{50AD4BBC-11AB-4B8A-B7D4-4A3D1038656E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObsidianSQL.library", "ObsidianSQL.library\ObsidianSQL.library.csproj", "{50AD4BBC-11AB-4B8A-B7D4-4A3D1038656E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObisidanSQL.library.mysql", "ObisidanSQL.library.mysql\ObisidanSQL.library.mysql.csproj", "{404A17CA-91CF-4774-8364-054EA2A28B86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObisidanSQL.library.sqlite", "ObisidanSQL.library.mysql\ObisidanSQL.library.sqlite.csproj", "{404A17CA-91CF-4774-8364-054EA2A28B86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObsidianSQL.library.mockup", "ObsidianSQL.library.mockup\ObsidianSQL.library.mockup.csproj", "{F92DCCBA-5CEA-4B1F-9998-56ED3248830C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{404A17CA-91CF-4774-8364-054EA2A28B86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{404A17CA-91CF-4774-8364-054EA2A28B86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{404A17CA-91CF-4774-8364-054EA2A28B86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F92DCCBA-5CEA-4B1F-9998-56ED3248830C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F92DCCBA-5CEA-4B1F-9998-56ED3248830C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F92DCCBA-5CEA-4B1F-9998-56ED3248830C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F92DCCBA-5CEA-4B1F-9998-56ED3248830C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

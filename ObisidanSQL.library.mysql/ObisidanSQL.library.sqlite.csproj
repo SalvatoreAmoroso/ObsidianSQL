@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>ObisidanSQL.library.sqlite</AssemblyName>
+    <RootNamespace>ObisidanSQL.library.sqlite</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
