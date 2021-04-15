@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ObisidanSQL.library.mysql\ObisidanSQL.library.sqlite.csproj" />
     <ProjectReference Include="..\ObsidianSQL.library\ObsidianSQL.library.csproj" />
   </ItemGroup>
 
