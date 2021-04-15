@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 
-namespace ObsidianSQL.src
+namespace ObsidianSQL.server
 {
     class RequestListener : IDisposable
     {
@@ -37,12 +37,12 @@ namespace ObsidianSQL.src
 
             //Manage Request
             //TODO: Manage Exception Handling
-            var responseDTO = _router.Evaluate(new Request(request));
+            //var responseDTO = _router.Evaluate(new Request(request));
 
             //Create Response
             var response = context.Response;
 
-            var responseBuffer = Encoding.UTF8.GetBytes(responseDTO.ResponseText);
+            var responseBuffer = Encoding.UTF8.GetBytes("Test"/*responseDTO.ResponseText*/);
 
             //Write Response
             using var output = response.OutputStream;

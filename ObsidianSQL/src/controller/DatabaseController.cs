@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ObsidianSQL.server.http;
 
-namespace ObsidianSQL.src.controller
+namespace ObsidianSQL.server.controller
 {
-    class ExampleController : IRouteHandler
+    public class DatabaseController : IController
     {
-        public Response GetResponse()
+        public IResponse GetResponse(IRequest request)
         {
             throw new NotImplementedException();
         }

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ObsidianSQL.src.exceptions;
+using ObsidianSQL.library;
+using ObsidianSQL.server.exceptions;
+using ObsidianSQL.server.http;
 
-namespace ObsidianSQL.src
+namespace ObsidianSQL.server
 {
     class Router
     {
@@ -34,7 +36,7 @@ namespace ObsidianSQL.src
             _routes.Remove(route);
         }
 
-        public Response Evaluate(Request request)
+        public IResponse Evaluate(IRequest request)
         {
             var route = _routes.Find(x => x.Url == request.Url);
 
@@ -43,7 +45,7 @@ namespace ObsidianSQL.src
                 throw new RouteNotFoundException($"The following route is not defined: {request.Url.AbsoluteUri}.");
             }
 
-            return route.RouteHandler.GetResponse();
+            return route.RouteHandler.GetResponse(request);
         }
     }
 }

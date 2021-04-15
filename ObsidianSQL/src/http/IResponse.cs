@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ObsidianSQL.src
+namespace ObsidianSQL.server.http
 {
-    interface IRouteHandler
+    public interface IResponse
     {
-        public Response GetResponse();
+        public string ResponseText { get; set; }
     }
 }

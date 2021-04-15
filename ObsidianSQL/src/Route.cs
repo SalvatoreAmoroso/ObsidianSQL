@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ObsidianSQL.server.controller;
 
-namespace ObsidianSQL.src
+namespace ObsidianSQL.server
 {
     class Route
     {
         public readonly Uri Url;
 
-        public readonly IRouteHandler RouteHandler;
+        public readonly IController RouteHandler;
 
-        public Route(Uri url, IRouteHandler routeHandler)
+        public Route(Uri url, IController routeHandler)
         {
             Url = url;
             RouteHandler = routeHandler;

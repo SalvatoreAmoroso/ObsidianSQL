@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ObsidianSQL.src.controller;
+using ObsidianSQL.server.controller;
 
-namespace ObsidianSQL.src
+namespace ObsidianSQL.server
 {
     class ObsidianSQL : IDisposable
     {
@@ -28,8 +28,8 @@ namespace ObsidianSQL.src
         
         private void ConfigureRouter()
         {
-            _router.RegisterRoute(new Route(new Uri("http://lol.de/wtf"), new ExampleController()));
-            _router.RegisterRoute(new Route(new Uri("http://lol.de/rofl"), new ExampleController()));
+            _router.RegisterRoute(new Route(new Uri("http://lol.de/wtf"), new DatabaseController()));
+            _router.RegisterRoute(new Route(new Uri("http://lol.de/rofl"), new DatabaseController()));
         }
     }
 }
