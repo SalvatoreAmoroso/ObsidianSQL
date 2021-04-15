@@ -1,11 +1,11 @@
-﻿using ObsidianSQL.library.controller;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ObsidianSQL.server.controller;
 
-namespace ObsidianSQL.server.src
+namespace ObsidianSQL.server
 {
     class Route
     {

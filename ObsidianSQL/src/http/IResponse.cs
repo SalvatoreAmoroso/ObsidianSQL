@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ObsidianSQL.library.controller
+namespace ObsidianSQL.server.http
 {
-    public interface ITableController : IController
+    public interface IResponse
     {
+        public string ResponseText { get; set; }
     }
 }

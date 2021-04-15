@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ObsidianSQL.library
 {
-    public interface IResponse
+    public interface ITableRow
     {
-        public string ResponseText { get; set; }
+        public IDataField<T> GetDataField<T>(string column);
     }
 }
