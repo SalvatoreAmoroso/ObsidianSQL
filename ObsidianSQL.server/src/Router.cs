@@ -4,18 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ObsidianSQL.library;
-using ObsidianSQL.server.exceptions;
+using ObsidianSQL.server.src.exceptions;
 using ObsidianSQL.server.http;
+using ObsidianSQL.server.src;
 
 namespace ObsidianSQL.server
 {
     class Router
     {
         private readonly List<Route> _routes = new();
+        private readonly Authentificator _auth;
 
-        public Router()
+        public Router(Authentificator auth)
         {
-
+            _auth = auth;
         }
 
         public void RegisterRoute(Route route)
@@ -45,7 +47,9 @@ namespace ObsidianSQL.server
                 throw new RouteNotFoundException($"The following route is not defined: {request.Url.AbsoluteUri}.");
             }
 
-            return route.RouteHandler.GetResponse(request);
+            IConnection con = _auth.Authentificate(request);
+
+            return route.RouteHandler.GetResponse(request, con);
         }
     }
 }

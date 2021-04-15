@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ObsidianSQL.server.controller;
+using ObsidianSQL.server.src;
 
 namespace ObsidianSQL.server
 {
@@ -13,10 +14,13 @@ namespace ObsidianSQL.server
 
         private readonly Router _router;
 
+        private readonly Authentificator _auth;
+
         public ObsidianSQL(string[] prefixes)
         {
+            _auth = new Authentificator();
+            _router = new Router(_auth);
             _requestListener = new RequestListener(prefixes, _router);
-            _router = new Router();
             ConfigureRouter();
         }
 

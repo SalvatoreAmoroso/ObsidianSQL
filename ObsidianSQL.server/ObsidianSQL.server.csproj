@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.10.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ObsidianSQL.library.mockup\ObsidianSQL.library.mockup.csproj" />
     <ProjectReference Include="..\ObsidianSQL.library\ObsidianSQL.library.csproj" />
   </ItemGroup>
 
