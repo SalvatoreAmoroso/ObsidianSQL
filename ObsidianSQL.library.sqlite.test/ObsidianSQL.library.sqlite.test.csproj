@@ -21,6 +21,9 @@
       <None Update="TestDatabase\connection-test.sqlite">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="TestDatabase\database-test.sqlite">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

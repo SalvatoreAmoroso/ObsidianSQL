@@ -6,25 +6,35 @@ namespace ObisidanSQL.library.sqlite
 	public class SQLiteConnection : IConnection
 	{
 		private string _filePath;
-		private System.Data.SQLite.SQLiteConnection _connection;
-		private SQLiteDatabase _database;
+		internal System.Data.SQLite.SQLiteConnection Connection;
+		private SQLiteDatabase[] _databases;
 
 		public SQLiteConnection(string filePath)
 		{
 			_filePath = filePath;
 		}
 
-		public IDatabase[] Databases { get; }
+		public IDatabase[] Databases => _databases;
 
 		public void Connect()
 		{
-			_connection = new System.Data.SQLite.SQLiteConnection("Data Source=" + _filePath);
-			_connection.Open();
+			Connection = new System.Data.SQLite.SQLiteConnection("Data Source=" + _filePath);
+			Connection.Open();
+			LoadDatabase();
 		}
 
+		private void LoadDatabase()
+		{
+			_databases = new SQLiteDatabase[1];
+			_databases[0] = new SQLiteDatabase(this)
+			{
+				Name = Connection.FileName
+			};
+		}
+		
 		public void Disconnect()
 		{
-			_connection.Close();
+			Connection.Close();
 		}
 
 		/// <summary>
@@ -34,7 +44,7 @@ namespace ObisidanSQL.library.sqlite
 		/// <returns>The number of affected rows</returns>
 		public int ExecuteQuery(string query)
 		{
-			var command = _connection.CreateCommand();
+			var command = Connection.CreateCommand();
 			command.CommandText = query;
 			return command.ExecuteNonQuery();
 		}
