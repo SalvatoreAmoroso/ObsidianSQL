@@ -1,5 +1,4 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ObisidanSQL.library.sqlite;
 
 namespace ObsidianSQL.library.sqlite.test
 {

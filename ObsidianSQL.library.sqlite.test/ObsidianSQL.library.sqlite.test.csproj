@@ -14,10 +14,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ObisidanSQL.library.sqlite\ObisidanSQL.library.sqlite.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Update="TestDatabase\connection-test.sqlite">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
@@ -27,6 +23,10 @@
       <None Update="TestDatabase\table-test.sqlite">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ObsidianSQL.library.sqlite\ObsidianSQL.library.sqlite.csproj" />
     </ItemGroup>
 
 </Project>
