@@ -35,7 +35,7 @@ namespace ObsidianSQL.library.sqlite.test
 		{
 			SQLiteConnection connection = new SQLiteConnection("TestDatabase/connection-test.sqlite");
 			connection.Connect();
-			int rows = connection.ExecuteQuery("DELETE FROM TestData WHERE TestInteger = 1");
+			int rows = connection.ExecuteQuery("DELETE FROM TestData WHERE TestInteger = 2");
 
 			Assert.AreEqual(1, rows);
 			
