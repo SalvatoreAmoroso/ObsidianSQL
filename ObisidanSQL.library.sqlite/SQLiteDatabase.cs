@@ -34,6 +34,7 @@ namespace ObisidanSQL.library.sqlite
 				var tableName = tableNameReader.GetString(0);
 				_tables[tableCounter++] = new SQLiteTable(_connection, tableName);
 			}
+			tableNameReader.Close();
 		}
 		
 		public string Name { get; set; }
