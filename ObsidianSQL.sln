@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObsidianSQL.library", "Obsi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObsidianSQL.library.mockup", "ObsidianSQL.library.mockup\ObsidianSQL.library.mockup.csproj", "{F92DCCBA-5CEA-4B1F-9998-56ED3248830C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObisidanSQL.library.sqlite", "ObisidanSQL.library.sqlite\ObisidanSQL.library.sqlite.csproj", "{50586B6B-11CE-4FBC-B980-E98C5A1D56EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObsidianSQL.library.sqlite", "ObsidianSQL.library.sqlite\ObsidianSQL.library.sqlite.csproj", "{50586B6B-11CE-4FBC-B980-E98C5A1D56EB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObsidianSQL.server", "ObsidianSQL.server\ObsidianSQL.server.csproj", "{9BF31054-47BA-4905-8264-CE8CA8D6D8CA}"
 EndProject

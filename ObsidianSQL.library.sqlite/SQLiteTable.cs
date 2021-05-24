@@ -1,7 +1,6 @@
 using System.Data;
-using ObsidianSQL.library;
 
-namespace ObisidanSQL.library.sqlite
+namespace ObsidianSQL.library.sqlite
 {
 	public class SQLiteTable : ITable
 	{

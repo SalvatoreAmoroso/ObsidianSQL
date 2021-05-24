@@ -1,6 +1,5 @@
-using ObsidianSQL.library;
 
-namespace ObisidanSQL.library.sqlite
+namespace ObsidianSQL.library.sqlite
 {
 	public class SQLiteTableColumn : ITableColumn
 	{
