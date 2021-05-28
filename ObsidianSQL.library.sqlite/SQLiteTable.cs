@@ -1,4 +1,6 @@
+using System;
 using System.Data;
+using System.Reflection;
 
 namespace ObsidianSQL.library.sqlite
 {
@@ -19,7 +21,25 @@ namespace ObsidianSQL.library.sqlite
 		public ITableColumn[] Columns => _columns;
 		public ITableRow[] GetData(int start, int end)
 		{
-			return new ITableRow[0];
+			var readCommand = _connection.Connection.CreateCommand();
+			readCommand.CommandText = "SELECT * FROM '" + _name + "' LIMIT " + start + ", " + (end - start);
+			var reader = readCommand.ExecuteReader();
+
+			SQLiteTableRow[] result = new SQLiteTableRow[end - start + 1];
+			int resultCounter = 0;
+			while (reader.Read())
+			{
+				result[resultCounter] = new SQLiteTableRow();
+				for (int col = 0; col < reader.FieldCount; col++)
+				{
+					var dataField = new SQLiteDataField<object>(
+						reader.GetOriginalName(col),
+						reader.GetValue(col)
+						);
+					result[resultCounter].AddDataField(dataField);
+				}
+			}
+			return result;
 		}
 
 		private void ChangeName(string newName)
