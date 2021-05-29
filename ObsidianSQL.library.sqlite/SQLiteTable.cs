@@ -38,6 +38,8 @@ namespace ObsidianSQL.library.sqlite
 						);
 					result[resultCounter].AddDataField(dataField);
 				}
+
+				resultCounter++;
 			}
 			return result;
 		}

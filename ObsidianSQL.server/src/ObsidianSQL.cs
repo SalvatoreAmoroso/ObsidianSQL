@@ -48,6 +48,7 @@ namespace ObsidianSQL.server
             _router.RegisterRoute(new Route(new string[] {"deleteDatabase", "*"}, _dbController.DeleteDatabase));
             
             _router.RegisterRoute(new Route(new string[] {"database", "*", "table", "*"}, _tableController.GetTableInfo));
+            _router.RegisterRoute(new Route(new string[] {"database", "*", "table", "*", "data"}, _tableController.GetTableData));
         }
 
         private void ConfigureLogger()
