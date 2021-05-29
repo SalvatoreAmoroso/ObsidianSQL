@@ -4,6 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
+using System.IO;
+using ObsidianSQL.server.src.http;
+using ObsidianSQL.server.src;
+using ObsidianSQL.library;
+using ObsidianSQL.server.src.exceptions;
 
 namespace ObsidianSQL.server
 {
@@ -33,20 +38,31 @@ namespace ObsidianSQL.server
         {
             //Wait for a request
             var context = await _httpListener.GetContextAsync();
-            var request = context.Request;
+            var request = new Request(context.Request);
 
             //Manage Request
-            //TODO: Manage Exception Handling
-            //var responseDTO = _router.Evaluate(new Request(request));
-
-            //Create Response
             var response = context.Response;
 
-            var responseBuffer = Encoding.UTF8.GetBytes("Test"/*responseDTO.ResponseText*/);
+            try
+            {
+                var responseDTO = _router.ManageRequest(request);
+                var responseBuffer = Encoding.UTF8.GetBytes(responseDTO.Content);
 
-            //Write Response
-            using var output = response.OutputStream;
-            output.Write(responseBuffer);
+
+                //Write Response
+                using var output = response.OutputStream;
+                output.Write(responseBuffer);
+            }
+            catch (AuthentificationFailedException ex)
+            {
+                Console.WriteLine(ex.Message);
+                response.StatusCode = 401;
+            }
+            catch (RouteNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+                response.StatusCode = 404;
+            }
         }
 
         public void Dispose()

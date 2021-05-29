@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace ObsidianSQL.server.src.exceptions
 {
-    class RouteNotFoundException : Exception
+    class AuthentificationFailedException : Exception
     {
-        public RouteNotFoundException()
+        public AuthentificationFailedException()
         {
         }
 
-        public RouteNotFoundException(string message)
+        public AuthentificationFailedException(string message)
             : base(message)
         {
         }
 
-        public RouteNotFoundException(string message, Exception inner)
+        public AuthentificationFailedException(string message, Exception inner)
             : base(message, inner)
         {
         }

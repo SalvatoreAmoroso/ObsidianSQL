@@ -4,19 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ObsidianSQL.library;
-using ObsidianSQL.server.exceptions;
+using ObsidianSQL.server.src.exceptions;
 using ObsidianSQL.server.http;
+using ObsidianSQL.server.src;
 
 namespace ObsidianSQL.server
 {
     class Router
     {
         private readonly List<Route> _routes = new();
-
-        public Router()
-        {
-
-        }
 
         public void RegisterRoute(Route route)
         {
@@ -36,7 +32,7 @@ namespace ObsidianSQL.server
             _routes.Remove(route);
         }
 
-        public IResponse Evaluate(IRequest request)
+        public IResponse ManageRequest(IRequest request)
         {
             var route = _routes.Find(x => x.Url == request.Url);
 

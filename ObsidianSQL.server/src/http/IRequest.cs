@@ -10,5 +10,6 @@ namespace ObsidianSQL.server.http
     {
         public Uri Url { get; set; }
         public string HttpMethod { get; set; }
+        public string HttpBodyContent { get; set; }
     }
 }

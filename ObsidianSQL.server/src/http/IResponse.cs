@@ -8,6 +8,6 @@ namespace ObsidianSQL.server.http
 {
     public interface IResponse
     {
-        public string ResponseText { get; set; }
+        public string Content { get; set; }
     }
 }
