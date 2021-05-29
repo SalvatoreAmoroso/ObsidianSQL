@@ -33,7 +33,10 @@ namespace ObsidianSQL.server
 
         public IResponse ManageRequest(IRequest request)
         {
-            var route = _routes.Find(x => x.Url == request.Url);
+            string[] urlFragments = request.Url.Segments;
+            
+            var route = _routes.Find(r => RouteMatches(r, urlFragments));
+            request.UrlPlaceholderValues = GetPlaceholderValues(route, urlFragments);
 
             if(route == null)
             {
@@ -41,6 +44,45 @@ namespace ObsidianSQL.server
             }
 
             return route.RouteHandler.GetResponse(request);
+        }
+
+        private bool RouteMatches(Route route, string[] urlFragments)
+        {
+            //Skip first slash
+            if (urlFragments.Length > 0 && urlFragments[0] == "/")
+                urlFragments = urlFragments.Skip(1).ToArray();
+            
+            for (int i = 0; i < urlFragments.Length; i++)
+            {
+                if (urlFragments[i].EndsWith("/"))
+                    urlFragments[i] = urlFragments[i].Remove(urlFragments[i].Length - 1); //remove trailing slashes
+                if (i >= route.Url.Length)
+                    return false;
+                if (route.Url[i] == "*")
+                    continue;
+                if (urlFragments[i] != route.Url[i])
+                    return false;
+            }
+            return true;
+        }
+
+        private List<string> GetPlaceholderValues(Route route, string[] urlFragments)
+        {
+            List<string> values = new();
+            
+            //Skip first slash
+            if (urlFragments.Length > 0 && urlFragments[0] == "/")
+                urlFragments = urlFragments.Skip(1).ToArray();
+            
+            for (int i = 0; i < urlFragments.Length && i < route.Url.Length; i++)
+            {
+                if (urlFragments[i].EndsWith("/"))
+                    urlFragments[i] = urlFragments[i].Remove(urlFragments[i].Length - 1); //remove trailing slashes
+                if (route.Url[i] == "*")
+                    values.Add(urlFragments[i]);
+            }
+
+            return values;
         }
     }
 }

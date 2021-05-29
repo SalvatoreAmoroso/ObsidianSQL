@@ -12,5 +12,6 @@ namespace ObsidianSQL.server.src.http
         public string HttpMethod { get; set; }
         public string HttpBodyContent { get; set; }
         public string AuthToken { get; set; }
+        public List<string> UrlPlaceholderValues { get; set; }
     }
 }

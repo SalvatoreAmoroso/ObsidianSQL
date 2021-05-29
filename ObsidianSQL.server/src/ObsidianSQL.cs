@@ -39,7 +39,7 @@ namespace ObsidianSQL.server
 
         private void ConfigureRouter()
         {
-            _router.RegisterRoute(new Route(new Uri("http://localhost:8080/login"), new LoginController(_connectionManager)));
+            _router.RegisterRoute(new Route(new string[] {"login"}, new LoginController(_connectionManager)));
         }
 
         private void ConfigureLogger()

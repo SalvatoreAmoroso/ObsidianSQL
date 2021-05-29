@@ -9,11 +9,11 @@ namespace ObsidianSQL.server
 {
     class Route
     {
-        public readonly Uri Url;
+        public readonly string[] Url;
 
         public readonly IController RouteHandler;
 
-        public Route(Uri url, IController routeHandler)
+        public Route(string[] url, IController routeHandler)
         {
             Url = url;
             RouteHandler = routeHandler;
