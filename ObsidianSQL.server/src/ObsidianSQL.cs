@@ -40,6 +40,7 @@ namespace ObsidianSQL.server
         private void ConfigureRouter()
         {
             _router.RegisterRoute(new Route(new string[] {"login"}, new LoginController(_connectionManager)));
+            _router.RegisterRoute(new Route(new string[] {"databases"}, new DatabaseController(_connectionManager)));
         }
 
         private void ConfigureLogger()
