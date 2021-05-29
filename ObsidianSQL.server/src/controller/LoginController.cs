@@ -13,7 +13,7 @@ using Serilog;
 
 namespace ObsidianSQL.server.src.controller
 {
-    class LoginController : IController
+    public class LoginController
     {
         private readonly ConnectionManager _connectionManager;
 
@@ -22,7 +22,7 @@ namespace ObsidianSQL.server.src.controller
             _connectionManager = con;
         }
 
-        public IResponse GetResponse(IRequest request)
+        public IResponse Login(IRequest request)
         {
             if(request.HttpMethod.ToLower() != "post")
             {
@@ -33,7 +33,7 @@ namespace ObsidianSQL.server.src.controller
             tokenResponse.token = _connectionManager.CreateConnection(request);
 
             var json = JsonSerializer.Serialize(tokenResponse);
-            return new Response(json);
+            return new Response(json, 200);
         }
     }
 }

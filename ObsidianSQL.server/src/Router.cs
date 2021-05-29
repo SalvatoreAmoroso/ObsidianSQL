@@ -43,7 +43,7 @@ namespace ObsidianSQL.server
                 throw new RouteNotFoundException($"The following route is not defined: {request.Url.AbsoluteUri}.");
             }
 
-            return route.RouteHandler.GetResponse(request);
+            return route.HandleRoute.Invoke(request);
         }
 
         private bool RouteMatches(Route route, string[] urlFragments)

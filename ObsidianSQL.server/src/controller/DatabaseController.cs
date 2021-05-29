@@ -14,7 +14,7 @@ namespace ObsidianSQL.server.src.controller
     /// <summary>
     /// Mögliches Refactoring: Statt Interface Abstrakten Controller, welche ConnectionManager und Methode um aus Request Connection zu bekommen enthält
     /// </summary>
-    public class DatabaseController : IController
+    public class DatabaseController
     {
         private readonly ConnectionManager _connectionManager;
 
@@ -23,18 +23,18 @@ namespace ObsidianSQL.server.src.controller
             _connectionManager = con;
         }
 
-        public IResponse GetResponse(IRequest request)
+        public IResponse GetDatabases(IRequest request)
         {
             var connection = GetConnection(request);
             
             if(request.HttpMethod.ToLower() == "get")
             {
                 var databases = connection.Databases;
-                return new Response(JsonSerializer.Serialize(databases));
+                return new Response(JsonSerializer.Serialize(databases), 200);
             } else if (request.HttpMethod.ToLower() == "post")
             {
                 CreateDatabase(request);
-                return new Response() { HttpStatusCode = 200 };
+                return new Response(200);
             } else
             {
                 throw new MethodNotAllowedException();

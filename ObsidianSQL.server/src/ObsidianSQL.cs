@@ -12,10 +12,10 @@ namespace ObsidianSQL.server
     class ObsidianSQL : IDisposable
     {
         private readonly RequestListener _requestListener;
-
         private readonly Router _router;
-
         private readonly ConnectionManager _connectionManager;
+        private readonly LoginController _loginController;
+        private readonly DatabaseController _dbController;
 
         public ObsidianSQL(string[] prefixes)
         {
@@ -23,6 +23,8 @@ namespace ObsidianSQL.server
             _router = new Router();
             _requestListener = new RequestListener(prefixes, _router);
             _connectionManager = new ConnectionManager();
+            _loginController = new LoginController(_connectionManager);
+            _dbController = new DatabaseController(_connectionManager);
             ConfigureRouter();
         }
 
@@ -39,8 +41,8 @@ namespace ObsidianSQL.server
 
         private void ConfigureRouter()
         {
-            _router.RegisterRoute(new Route(new string[] {"login"}, new LoginController(_connectionManager)));
-            _router.RegisterRoute(new Route(new string[] {"databases"}, new DatabaseController(_connectionManager)));
+            _router.RegisterRoute(new Route(new string[] {"login"}, _loginController.Login));
+            _router.RegisterRoute(new Route(new string[] {"databases"}, _dbController.GetDatabases));
         }
 
         private void ConfigureLogger()

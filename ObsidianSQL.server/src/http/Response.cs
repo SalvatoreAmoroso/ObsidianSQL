@@ -12,13 +12,15 @@ namespace ObsidianSQL.server.src.http
         public string Content { get; set; }
         public int HttpStatusCode { get; set; }
 
-        public Response()
-        {
 
+        public Response(int httpStatusCode)
+        {
+            HttpStatusCode = httpStatusCode;
         }
-        public Response(string content)
+        public Response(string content, int httpStatusCode)
         {
             Content = content;
+            HttpStatusCode = httpStatusCode;
         }
     }
 }
