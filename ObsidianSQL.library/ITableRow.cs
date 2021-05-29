@@ -9,5 +9,6 @@ namespace ObsidianSQL.library
     public interface ITableRow
     {
         public IDataField<T> GetDataField<T>(string column);
+        public List<IDataField<object>> DataFields { get; }
     }
 }

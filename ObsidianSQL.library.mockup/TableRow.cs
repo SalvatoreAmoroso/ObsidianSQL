@@ -12,5 +12,7 @@ namespace ObsidianSQL.library.mockup
         {
             throw new NotImplementedException();
         }
+
+        public List<IDataField<object>> DataFields { get; } = new();
     }
 }

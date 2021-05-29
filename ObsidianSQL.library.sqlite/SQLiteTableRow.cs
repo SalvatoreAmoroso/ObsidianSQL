@@ -4,7 +4,7 @@ namespace ObsidianSQL.library.sqlite
 {
 	public class SQLiteTableRow : ITableRow
 	{
-		private List<SQLiteDataField<object>> _fields = new();
+		private List<IDataField<object>> _fields = new();
 
 		internal void AddDataField(SQLiteDataField<object> field)
 		{
@@ -15,5 +15,7 @@ namespace ObsidianSQL.library.sqlite
 		{
 			return _fields.Find(field => field.ColumnName == column) as SQLiteDataField<T>;
 		}
+
+		public List<IDataField<object>> DataFields => _fields;
 	}
 }
