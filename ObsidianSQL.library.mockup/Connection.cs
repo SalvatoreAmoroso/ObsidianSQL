@@ -8,8 +8,7 @@ namespace ObsidianSQL.library.mockup
 {
     public class Connection : IConnection
     {
-        public IDatabase[] Databases { get; set; }
-
+        public List<IDatabase> Databases { get; set; }
         public void Connect()
         {
             Console.WriteLine($"Connected from DB.");
@@ -26,10 +25,19 @@ namespace ObsidianSQL.library.mockup
             return 0;
         }
 
+        public void AddDatabase(IDatabase database)
+        {
+            Databases.Add(database);
+        }
+
+        public void RemoveDatabase(IDatabase database)
+        {
+            Databases.Remove(database);
+        }
 
         public Connection()
         {
-            Databases = new Database[] { new Database("onlineshop"), new Database("onlinegame") };
+            Databases = new List<IDatabase> { new Database("onlineshop"), new Database("onlinegame") };
         }
     }
 }

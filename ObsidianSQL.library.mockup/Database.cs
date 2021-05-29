@@ -10,17 +10,27 @@ namespace ObsidianSQL.library.mockup
     {
         public string Name { get; set; }
 
-        public ITable[] Tables { get; set; }
+        public List<ITable> Tables { get; set; }
 
         public void ExecuteQuery(string query)
         {
             Console.WriteLine($"{query} executed.");
         }
 
+        public void AddTable(ITable table)
+        {
+            Tables.Add(table);
+        }
+
+        public void RemoveTable(ITable table)
+        {
+            Tables.Remove(table);
+        }
+
         public Database(string name)
         {
             Name = name;
-            Tables = new Table[] { new Table("Users"), new Table("Presidents") };
+            Tables = new List<ITable> { new Table("Users"), new Table("Products") };
         }
     }
 }
