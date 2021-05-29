@@ -24,9 +24,9 @@ namespace ObsidianSQL.library.sqlite
 			throw new InvalidOperationException("SQLite has only one database");
 		}
 
-		public void RemoveDatabase(string database)
+		public bool RemoveDatabase(string database)
 		{
-			throw new InvalidOperationException("SQLite must have one database");
+			return false;
 		}
 
 		public void Connect()
