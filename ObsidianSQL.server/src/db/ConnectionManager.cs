@@ -7,6 +7,7 @@ using ObsidianSQL.library.mockup;
 using ObsidianSQL.library.sqlite;
 using ObsidianSQL.server.src.http;
 using ObsidianSQL.server.src.exceptions;
+using Serilog;
 
 namespace ObsidianSQL.server.db
 {
@@ -24,6 +25,7 @@ namespace ObsidianSQL.server.db
         /// </summary>
         public IConnection GetConnection(string token)
         {
+            Log.Debug("Get Connection for " + token);
             ActiveConnection connection = _connections.Find(conn => conn.Token == token);
             return connection?.Connection;
         }
@@ -61,7 +63,8 @@ namespace ObsidianSQL.server.db
                     dbConnection = new SQLiteConnection(filePathToken.ToString());
                     break;
             }
-            
+
+            dbConnection.Connect();
             string token = GenerateToken();
             _connections.Add(new ActiveConnection(token, dbConnection));
             

@@ -7,6 +7,7 @@ using ObsidianSQL.library;
 using ObsidianSQL.server.db;
 using ObsidianSQL.server.src.http;
 using ObsidianSQL.server.src.exceptions;
+using System.Text.Json;
 
 namespace ObsidianSQL.server.src.controller
 {
@@ -28,7 +29,8 @@ namespace ObsidianSQL.server.src.controller
             
             if(request.HttpMethod.ToLower() == "get")
             {
-                return new Response("");
+                var databases = connection.Databases;
+                return new Response(JsonSerializer.Serialize(databases));
             } else if (request.HttpMethod.ToLower() == "post")
             {
                 return new Response("");

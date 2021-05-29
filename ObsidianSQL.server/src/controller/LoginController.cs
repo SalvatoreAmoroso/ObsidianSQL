@@ -9,6 +9,7 @@ using System.Text.Json;
 using ObsidianSQL.server.db;
 using System.Dynamic;
 using ObsidianSQL.server.src.exceptions;
+using Serilog;
 
 namespace ObsidianSQL.server.src.controller
 {
@@ -23,7 +24,7 @@ namespace ObsidianSQL.server.src.controller
 
         public IResponse GetResponse(IRequest request)
         {
-            if(request.HttpMethod != "post")
+            if(request.HttpMethod.ToLower() != "post")
             {
                 throw new MethodNotAllowedException();
             }
