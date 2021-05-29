@@ -6,7 +6,7 @@ namespace ObsidianSQL.library
     {
         public List<IDatabase> Databases { get; }
         public void AddDatabase(string databaseName);
-        public void RemoveDatabase(string databaseName);
+        public bool RemoveDatabase(string databaseName);
         public void Connect();
         public void Disconnect();
         public int ExecuteQuery(string query);
