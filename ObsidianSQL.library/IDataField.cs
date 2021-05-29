@@ -2,7 +2,7 @@
 {
     public interface IDataField<T>
     {
-        public string ColumnName { get; set;  }
+        public string ColumnName { get; set; }
         public T Value { get; set; }
     }
 }
