@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObsidianSQL.library", "Obsi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObsidianSQL.library.mockup", "ObsidianSQL.library.mockup\ObsidianSQL.library.mockup.csproj", "{F92DCCBA-5CEA-4B1F-9998-56ED3248830C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObisidanSQL.library.sqlite", "ObisidanSQL.library.sqlite\ObisidanSQL.library.sqlite.csproj", "{50586B6B-11CE-4FBC-B980-E98C5A1D56EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObsidianSQL.library.sqlite", "ObsidianSQL.library.sqlite\ObsidianSQL.library.sqlite.csproj", "{50586B6B-11CE-4FBC-B980-E98C5A1D56EB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObsidianSQL.server", "ObsidianSQL.server\ObsidianSQL.server.csproj", "{9BF31054-47BA-4905-8264-CE8CA8D6D8CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObsidianSQL.test", "ObsidianSQL.test\ObsidianSQL.test.csproj", "{7B9B89A2-FEAF-4999-B770-CAB30122D059}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObsidianSQL.library.sqlite.test", "ObsidianSQL.library.sqlite.test\ObsidianSQL.library.sqlite.test.csproj", "{172A6D44-27C0-4F9D-856A-6786C2776ECF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{7B9B89A2-FEAF-4999-B770-CAB30122D059}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B9B89A2-FEAF-4999-B770-CAB30122D059}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B9B89A2-FEAF-4999-B770-CAB30122D059}.Release|Any CPU.Build.0 = Release|Any CPU
+		{172A6D44-27C0-4F9D-856A-6786C2776ECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{172A6D44-27C0-4F9D-856A-6786C2776ECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{172A6D44-27C0-4F9D-856A-6786C2776ECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{172A6D44-27C0-4F9D-856A-6786C2776ECF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
