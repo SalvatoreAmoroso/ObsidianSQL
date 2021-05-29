@@ -6,7 +6,7 @@ namespace ObsidianSQL.server
     {
         static void Main(string[] args)
         {
-            string[] prefixes = { "http://lol/" };
+            string[] prefixes = { "http://*:8080" };
 
             using ObsidianSQL app = new(prefixes);
             app.Start();
