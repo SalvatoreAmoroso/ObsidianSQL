@@ -30,9 +30,9 @@ namespace ObsidianSQL.library.mockup
             Databases.Add(new Database(database));
         }
 
-        public void RemoveDatabase(string database)
+        public bool RemoveDatabase(string database)
         {
-            Databases.RemoveAll(db => db.Name == database);
+            return Databases.RemoveAll(db => db.Name == database) > 0;
         }
 
         public Connection()

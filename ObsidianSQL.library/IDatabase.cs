@@ -7,7 +7,7 @@ namespace ObsidianSQL.library
         public string Name { get; set; }
         public List<ITable> Tables { get; }
         public void AddTable(string tableName);
-        public void RemoveTable(string tableName);
+        public bool RemoveTable(string tableName);
         public void ExecuteQuery(string query);
     }
 }

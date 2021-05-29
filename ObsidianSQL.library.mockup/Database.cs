@@ -22,9 +22,9 @@ namespace ObsidianSQL.library.mockup
             Tables.Add(new Table(tableName));
         }
 
-        public void RemoveTable(string tableName)
+        public bool RemoveTable(string tableName)
         {
-            Tables.RemoveAll(table => table.Name == tableName);
+            return Tables.RemoveAll(table => table.Name == tableName) > 0;
         }
 
         public Database(string name)
