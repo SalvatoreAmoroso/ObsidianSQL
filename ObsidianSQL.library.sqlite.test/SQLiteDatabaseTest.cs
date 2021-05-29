@@ -11,7 +11,7 @@ namespace ObsidianSQL.library.sqlite.test
 			SQLiteConnection connection = new SQLiteConnection("TestDatabase/database-test.sqlite");
 			connection.Connect();
 			
-			Assert.AreEqual(1, connection.Databases.Length);
+			Assert.AreEqual(1, connection.Databases.Count);
 			
 			connection.Disconnect();
 		}
@@ -22,7 +22,7 @@ namespace ObsidianSQL.library.sqlite.test
 			SQLiteConnection connection = new SQLiteConnection("TestDatabase/database-test.sqlite");
 			connection.Connect();
 			
-			Assert.AreEqual(1, connection.Databases[0].Tables.Length);
+			Assert.AreEqual(1, connection.Databases[0].Tables.Count);
 			
 			connection.Disconnect();
 		}

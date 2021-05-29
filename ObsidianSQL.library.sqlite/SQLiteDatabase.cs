@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 
 namespace ObsidianSQL.library.sqlite
@@ -6,7 +7,7 @@ namespace ObsidianSQL.library.sqlite
 	public class SQLiteDatabase : IDatabase
 	{
 		private SQLiteConnection _connection;
-		private SQLiteTable[] _tables;
+		private List<ITable> _tables;
 
 		public SQLiteDatabase(SQLiteConnection connection)
 		{
@@ -16,13 +17,7 @@ namespace ObsidianSQL.library.sqlite
 
 		private void LoadTables()
 		{
-			var tableLengthCommand = _connection.Connection.CreateCommand();
-			tableLengthCommand.CommandText = "SELECT COUNT() FROM sqlite_master WHERE type='table'";
-			var tableLengthReader = tableLengthCommand.ExecuteReader();
-			tableLengthReader.Read();
-			int tableLength = tableLengthReader.GetInt32(0);
-			tableLengthReader.Close();
-			_tables = new SQLiteTable[tableLength];
+			_tables = new List<ITable>();
 			
 			var tableNamesCommand = _connection.Connection.CreateCommand();
 			tableNamesCommand.CommandText = "SELECT name FROM sqlite_master WHERE type='table'";
@@ -31,13 +26,22 @@ namespace ObsidianSQL.library.sqlite
 			while (tableNameReader.Read())
 			{
 				var tableName = tableNameReader.GetString(0);
-				_tables[tableCounter++] = new SQLiteTable(_connection, tableName);
+				_tables.Add(new SQLiteTable(_connection, tableName));
 			}
 			tableNameReader.Close();
 		}
 		
 		public string Name { get; set; }
-		public ITable[] Tables => _tables;
+		public List<ITable> Tables => _tables;
+		public void AddTable(ITable table)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void RemoveTable(ITable table)
+		{
+			throw new NotImplementedException();
+		}
 
 		public void ExecuteQuery(string query)
 		{

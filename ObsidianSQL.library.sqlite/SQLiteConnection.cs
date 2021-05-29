@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ObsidianSQL.library.sqlite
 {
@@ -6,14 +7,23 @@ namespace ObsidianSQL.library.sqlite
 	{
 		private string _filePath;
 		internal System.Data.SQLite.SQLiteConnection Connection;
-		private SQLiteDatabase[] _databases;
+		private List<IDatabase> _databases;
 
 		public SQLiteConnection(string filePath)
 		{
 			_filePath = filePath;
 		}
 
-		public IDatabase[] Databases => _databases;
+		public List<IDatabase> Databases => _databases;
+		public void AddDatabase(IDatabase database)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void RemoveDatabase(IDatabase database)
+		{
+			throw new NotImplementedException();
+		}
 
 		public void Connect()
 		{
@@ -24,11 +34,11 @@ namespace ObsidianSQL.library.sqlite
 
 		private void LoadDatabase()
 		{
-			_databases = new SQLiteDatabase[1];
-			_databases[0] = new SQLiteDatabase(this)
+			_databases = new List<IDatabase>();
+			_databases.Add(new SQLiteDatabase(this)
 			{
 				Name = Connection.FileName
-			};
+			});
 		}
 		
 		public void Disconnect()

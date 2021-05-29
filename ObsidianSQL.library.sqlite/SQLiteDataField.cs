@@ -8,7 +8,7 @@ namespace ObsidianSQL.library.sqlite
 			Value = value;
 		}
 		
-		public string ColumnName { get; }
-		public T Value { get; }
+		public string ColumnName { get; set; }
+		public T Value { get; set; }
 	}
 }
