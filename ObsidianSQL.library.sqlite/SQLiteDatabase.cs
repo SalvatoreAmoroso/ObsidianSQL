@@ -22,7 +22,6 @@ namespace ObsidianSQL.library.sqlite
 			var tableNamesCommand = _connection.Connection.CreateCommand();
 			tableNamesCommand.CommandText = "SELECT name FROM sqlite_master WHERE type='table'";
 			var tableNameReader = tableNamesCommand.ExecuteReader();
-			int tableCounter = 0;
 			while (tableNameReader.Read())
 			{
 				var tableName = tableNameReader.GetString(0);
