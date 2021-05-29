@@ -77,6 +77,16 @@ namespace ObsidianSQL.server
                     Log.Error(ex.Message);
                     response.StatusCode = 401;
                 }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Log.Error(ex.Message);
+                    response.StatusCode = 403;
+                }
+                catch (DatabaseNotFoundException ex)
+                {
+                    Log.Error(ex.Message); ;
+                    response.StatusCode = 404;
+                }
                 catch (RouteNotFoundException ex)
                 {
                     Log.Error(ex.Message); ;
@@ -92,7 +102,7 @@ namespace ObsidianSQL.server
                     Log.Error(ex.Message); ;
                     response.StatusCode = 405;
                 }
-                catch (DatabaseNotFoundException ex)
+                catch (DatabaseTypeNotFoundException ex)
                 {
                     Log.Error(ex.Message); ;
                     response.StatusCode = 422;

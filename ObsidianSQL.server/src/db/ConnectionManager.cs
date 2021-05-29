@@ -74,7 +74,7 @@ namespace ObsidianSQL.server.db
 
             if(dbConnection == null)
             {
-                throw new DatabaseNotFoundException(); 
+                throw new DatabaseTypeNotFoundException(); 
             }
 
             dbConnection.Connect();

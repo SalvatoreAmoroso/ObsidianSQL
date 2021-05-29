@@ -66,7 +66,26 @@ namespace ObsidianSQL.server.src.controller
             if (database == null)
                 throw new ResourceNotFoundException("Database does not exist");
 
-            return new Response(JsonSerializer.Serialize(database),200);
+            return new Response(JsonSerializer.Serialize(database), 200);
+        }
+
+        public IResponse DeleteDatabase(IRequest request)
+        {
+            var connection = GetConnection(request);
+
+            if (request.HttpMethod != "delete")
+            {
+                throw new MethodNotAllowedException();
+            }
+
+            var databaseToDelete = request.UrlPlaceholderValues[0];
+
+            if(connection.RemoveDatabase(databaseToDelete))
+            {
+                return new Response(200);
+            }
+
+            throw new DatabaseNotFoundException();
         }
 
         private IConnection GetConnection(IRequest request)
@@ -74,7 +93,7 @@ namespace ObsidianSQL.server.src.controller
             var connection = _connectionManager.GetConnection(request.AuthToken);
             if(connection == null)
             {
-                throw new AuthentificationFailedException();
+                throw new AuthenticationFailedException();
             }
             return connection;
         }
