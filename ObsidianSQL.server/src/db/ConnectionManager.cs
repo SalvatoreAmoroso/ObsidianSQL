@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ObsidianSQL.library;
 using ObsidianSQL.library.mockup;
 using ObsidianSQL.library.sqlite;
 using ObsidianSQL.server.http;
+using ObsidianSQL.server.src.exceptions;
 
 namespace ObsidianSQL.server.db
 {
@@ -33,11 +35,24 @@ namespace ObsidianSQL.server.db
         /// <returns>The token for the user</returns>
         public string CreateConnection(IRequest request)
         {
-            JObject requestBody = JObject.Parse(request.HttpBodyContent);
-            string databaseType = requestBody.Value<string>("databaseType").ToLower();
+            JObject requestBody;
+            try
+            {
+                requestBody = JObject.Parse(request.HttpBodyContent);
+            }
+            catch (JsonReaderException)
+            {
+                throw new BadRequestException();
+            }
 
+            string databaseType = requestBody.Value<string>("databaseType");
+            if(databaseType == null)
+            {
+                throw new BadRequestException();
+            }
+            
             IConnection dbConnection = null;
-            switch (databaseType)
+            switch (databaseType.ToString())
             {
                 case "sqlite":
                     string filePath = requestBody.Value<string>("filepath").ToLower();

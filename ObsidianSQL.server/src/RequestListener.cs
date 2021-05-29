@@ -10,6 +10,7 @@ using ObsidianSQL.server.src;
 using ObsidianSQL.library;
 using ObsidianSQL.server.src.exceptions;
 using Serilog;
+using ObsidianSQL.server.http;
 
 namespace ObsidianSQL.server
 {
@@ -46,33 +47,41 @@ namespace ObsidianSQL.server
             {
                 //Wait for a request
                 var context = await _httpListener.GetContextAsync();
-                Log.Debug($"Received a request to {context.Request.Url}");
+                Log.Debug($"Received a request to '{context.Request.Url}' from {context.Request.UserHostAddress}");
 
                 var request = new Request(context.Request);
 
                 //Manage Request
                 var response = context.Response;
+                
+                IResponse responseDTO = null;
 
                 try
                 {
-                    var responseDTO = _router.ManageRequest(request);
-                    var responseBuffer = Encoding.UTF8.GetBytes(responseDTO.Content);
-
-
-                    //Write Response
-                    using var output = response.OutputStream;
-                    output.Write(responseBuffer);
+                    responseDTO = _router.ManageRequest(request);
+                    Log.Debug($"Request successfully processed");
+                }
+                catch (BadRequestException ex)
+                {
+                    Log.Error(ex.Message);
+                    response.StatusCode = 400;
                 }
                 catch (AuthentificationFailedException ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    Log.Error(ex.Message);
                     response.StatusCode = 401;
                 }
                 catch (RouteNotFoundException ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    Log.Error(ex.Message); ;
                     response.StatusCode = 404;
                 }
+
+                var responseBuffer = responseDTO == null ? Array.Empty<byte>() : Encoding.UTF8.GetBytes(responseDTO.Content);
+
+                using var output = response.OutputStream;
+                output.Write(responseBuffer);
+                Log.Debug("Response sent");
             }
         }
 
