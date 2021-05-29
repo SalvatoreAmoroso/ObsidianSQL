@@ -37,7 +37,7 @@ namespace ObsidianSQL.server
         
         private void ConfigureRouter()
         {
-            _router.RegisterRoute(new Route(new Uri("login"), new LoginController(_connectionManager)));
+            _router.RegisterRoute(new Route(new Uri("/login"), new LoginController(_connectionManager)));
             _router.RegisterRoute(new Route(new Uri("http://lol.de/rofl"), new DatabaseController()));
         }
     }
