@@ -41,7 +41,7 @@ namespace ObsidianSQL.library.sqlite
 			_databases = new List<IDatabase>();
 			_databases.Add(new SQLiteDatabase(this)
 			{
-				Name = Connection.FileName
+				Name = Path.GetFileName(Connection.FileName)
 			});
 		}
 		
