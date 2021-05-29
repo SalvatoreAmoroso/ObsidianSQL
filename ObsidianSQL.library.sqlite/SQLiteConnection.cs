@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace ObsidianSQL.library.sqlite
 {
@@ -11,6 +12,9 @@ namespace ObsidianSQL.library.sqlite
 
 		public SQLiteConnection(string filePath)
 		{
+			FileInfo file = new FileInfo(filePath);
+			if (!file.Exists)
+				throw new FileNotFoundException("SQLite file does not exist");
 			_filePath = filePath;
 		}
 

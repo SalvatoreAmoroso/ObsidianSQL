@@ -74,6 +74,11 @@ namespace ObsidianSQL.server
                     Log.Error(ex.Message); ;
                     response.StatusCode = 404;
                 }
+                catch (ResourceNotFoundException ex)
+                {
+                    Log.Error(ex.Message); ;
+                    response.StatusCode = 404;
+                }
                 catch (MethodNotAllowedException ex)
                 {
                     Log.Error(ex.Message); ;

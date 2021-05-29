@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ObsidianSQL.library;
@@ -60,7 +61,14 @@ namespace ObsidianSQL.server.db
                     {
                         throw new BadRequestException();
                     }
-                    dbConnection = new SQLiteConnection(filePathToken.ToString());
+                    try
+                    {
+                        dbConnection = new SQLiteConnection(filePathToken.ToString());
+                    }
+                    catch (FileNotFoundException e)
+                    {
+                        throw new ResourceNotFoundException(e.Message);
+                    }
                     break;
             }
 
