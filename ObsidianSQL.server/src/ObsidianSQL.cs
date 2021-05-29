@@ -13,7 +13,6 @@ namespace ObsidianSQL.server
     {
         private readonly RequestListener _requestListener;
         private readonly Router _router;
-        private readonly ConnectionManager _connectionManager;
         private readonly LoginController _loginController;
         private readonly DatabaseController _dbController;
         private readonly TableController _tableController;
@@ -23,10 +22,10 @@ namespace ObsidianSQL.server
             ConfigureLogger();
             _router = new Router();
             _requestListener = new RequestListener(prefixes, _router);
-            _connectionManager = new ConnectionManager();
-            _loginController = new LoginController(_connectionManager);
-            _dbController = new DatabaseController(_connectionManager);
-            _tableController = new TableController(_connectionManager);
+            var connectionManager = new ConnectionManager();
+            _loginController = new LoginController(connectionManager);
+            _dbController = new DatabaseController(connectionManager);
+            _tableController = new TableController(connectionManager);
             ConfigureRouter();
         }
 

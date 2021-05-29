@@ -42,7 +42,7 @@ namespace ObsidianSQL.server.src.controller
 			var connection = _connectionManager.GetConnection(request.AuthToken);
 			if(connection == null)
 			{
-				throw new AuthentificationFailedException();
+				throw new AuthenticationFailedException();
 			}
 			return connection;
 		}
