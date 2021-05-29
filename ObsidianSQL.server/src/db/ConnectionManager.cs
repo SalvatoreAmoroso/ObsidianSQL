@@ -41,7 +41,7 @@ namespace ObsidianSQL.server.db
                 requestBody = JObject.Parse(request.HttpBodyContent);
             }
             catch (JsonReaderException)
-            {
+            {   
                 throw new BadRequestException();
             }
 

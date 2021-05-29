@@ -76,6 +76,12 @@ namespace ObsidianSQL.server
                     Log.Error(ex.Message); ;
                     response.StatusCode = 404;
                 }
+                catch (MethodNotAllowedException ex)
+                {
+                    Log.Error(ex.Message); ;
+                    response.StatusCode = 405;
+                }
+
 
                 var responseBuffer = responseDTO == null ? Array.Empty<byte>() : Encoding.UTF8.GetBytes(responseDTO.Content);
 

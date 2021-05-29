@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ObsidianSQL.server.src.http
 {
-    class Request : IRequest
+    public class Request : IRequest
     {
         public Uri Url { get; set; }
         public string HttpMethod { get; set; }
