@@ -45,18 +45,20 @@ namespace ObsidianSQL.server.db
                 throw new BadRequestException();
             }
 
-            string databaseType = requestBody.Value<string>("databaseType");
-            if(databaseType == null)
+            if(!requestBody.TryGetValue("databaseType", out var databaseTypeToken))
             {
                 throw new BadRequestException();
             }
             
             IConnection dbConnection = null;
-            switch (databaseType.ToString())
+            switch (databaseTypeToken.ToString())
             {
                 case "sqlite":
-                    string filePath = requestBody.Value<string>("filepath").ToLower();
-                    dbConnection = new SQLiteConnection(filePath);
+                    if (!requestBody.TryGetValue("filepath", out var filePathToken))
+                    {
+                        throw new BadRequestException();
+                    }
+                    dbConnection = new SQLiteConnection(filePathToken.ToString());
                     break;
             }
             
