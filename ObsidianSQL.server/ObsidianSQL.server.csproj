@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ObsidianSQL.library.mockup\ObsidianSQL.library.mockup.csproj" />
     <ProjectReference Include="..\ObsidianSQL.library\ObsidianSQL.library.csproj" />
   </ItemGroup>
 
