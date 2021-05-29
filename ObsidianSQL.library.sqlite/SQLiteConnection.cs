@@ -17,12 +17,12 @@ namespace ObsidianSQL.library.sqlite
 		public List<IDatabase> Databases => _databases;
 		public void AddDatabase(IDatabase database)
 		{
-			throw new NotImplementedException();
+			throw new InvalidOperationException("SQLite has only one database");
 		}
 
 		public void RemoveDatabase(IDatabase database)
 		{
-			throw new NotImplementedException();
+			throw new InvalidOperationException("SQLite must have one database");
 		}
 
 		public void Connect()
