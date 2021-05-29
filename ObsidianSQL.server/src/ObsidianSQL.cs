@@ -19,10 +19,10 @@ namespace ObsidianSQL.server
 
         public ObsidianSQL(string[] prefixes)
         {
+            ConfigureLogger();
             _router = new Router();
             _requestListener = new RequestListener(prefixes, _router);
             _connectionManager = new ConnectionManager();
-            ConfigureLogger();
             ConfigureRouter();
         }
 

@@ -32,6 +32,7 @@ namespace ObsidianSQL.server
 
             //Start Listener
             _httpListener.Start();
+            Log.Information("HttpListener started");
         }
 
         /// <summary>
@@ -45,6 +46,8 @@ namespace ObsidianSQL.server
             {
                 //Wait for a request
                 var context = await _httpListener.GetContextAsync();
+                Log.Debug($"Received a request to {context.Request.Url}");
+
                 var request = new Request(context.Request);
 
                 //Manage Request
@@ -75,6 +78,7 @@ namespace ObsidianSQL.server
 
         public void Stop()
         {
+            Log.Information("Stop HttpListener");
             _runServer = false;
         }
 
