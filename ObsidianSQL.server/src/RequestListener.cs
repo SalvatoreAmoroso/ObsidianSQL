@@ -53,18 +53,18 @@ namespace ObsidianSQL.server
                 //Manage Request
                 var response = context.Response;
 
-                IResponse responseDTO = null;
+                IResponse responseDto = null;
 
                 try
                 {
-                    responseDTO = _router.ManageRequest(request);
+                    responseDto = _router.ManageRequest(request);
 
-                    if (responseDTO.HttpStatusCode == 0)
+                    if (responseDto.HttpStatusCode == 0)
                     {
                         throw new InvalidDataException("Invalid http status code.");
                     }
 
-                    response.StatusCode = responseDTO.HttpStatusCode;
+                    response.StatusCode = responseDto.HttpStatusCode;
                     Log.Debug($"Request successfully processed");
                 }
                 catch (BadRequestException ex)
@@ -72,7 +72,7 @@ namespace ObsidianSQL.server
                     Log.Error(ex.Message);
                     response.StatusCode = 400;
                 }
-                catch (AuthentificationFailedException ex)
+                catch (AuthenticationFailedException ex)
                 {
                     Log.Error(ex.Message);
                     response.StatusCode = 401;
@@ -99,14 +99,14 @@ namespace ObsidianSQL.server
                 }
 
 
-                byte[] responseBuffer = Array.Empty<byte>();
+                var responseBuffer = Array.Empty<byte>();
 
-                if (responseDTO != null)
+                if (responseDto != null)
                 {
-                    responseBuffer = Encoding.UTF8.GetBytes(responseDTO.Content);
+                    responseBuffer = Encoding.UTF8.GetBytes(responseDto.Content);
                     try
                     {
-                        JsonDocument.Parse(responseDTO.Content);
+                        JsonDocument.Parse(responseDto.Content);
                         response.Headers.Set("Content-Type", "application/json");
                     }
                     catch (JsonException) { }

@@ -47,13 +47,13 @@ namespace ObsidianSQL.server
             return route.HandleRoute.Invoke(request);
         }
 
-        private bool RouteMatches(Route route, string[] urlFragments)
+        private static bool RouteMatches(Route route, string[] urlFragments)
         {
             //Skip first slash
             if (urlFragments.Length > 0 && urlFragments[0] == "/")
                 urlFragments = urlFragments.Skip(1).ToArray();
             
-            for (int i = 0; i < urlFragments.Length; i++)
+            for (var i = 0; i < urlFragments.Length; i++)
             {
                 if (urlFragments[i].EndsWith("/"))
                     urlFragments[i] = urlFragments[i].Remove(urlFragments[i].Length - 1); //remove trailing slashes
@@ -67,7 +67,7 @@ namespace ObsidianSQL.server
             return true;
         }
 
-        private List<string> GetPlaceholderValues(Route route, string[] urlFragments)
+        private static List<string> GetPlaceholderValues(Route route, string[] urlFragments)
         {
             List<string> values = new();
             
