@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using ObsidianSQL.library;
 using ObsidianSQL.library.mockup;
+using ObsidianSQL.library.sqlite;
 using ObsidianSQL.server.http;
 
 namespace ObsidianSQL.server.db
@@ -31,8 +33,17 @@ namespace ObsidianSQL.server.db
         /// <returns>The token for the user</returns>
         public string CreateConnection(IRequest request)
         {
-            //TODO: Create the right connection (SQLite, MySQL, ..) based on the request
-            IConnection dbConnection = new Connection();
+            JObject requestBody = JObject.Parse(request.HttpBodyContent);
+            string databaseType = requestBody.Value<string>("databaseType").ToLower();
+
+            IConnection dbConnection = null;
+            switch (databaseType)
+            {
+                case "sqlite":
+                    dbConnection = new SQLiteConnection("");
+                    break;
+            }
+            
             string token = GenerateToken();
             _connections.Add(new ActiveConnection(token, dbConnection));
             

@@ -9,7 +9,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ObsidianSQL.library.mockup\ObsidianSQL.library.mockup.csproj" />
+    <ProjectReference Include="..\ObsidianSQL.library.sqlite\ObsidianSQL.library.sqlite.csproj" />
     <ProjectReference Include="..\ObsidianSQL.library\ObsidianSQL.library.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
   </ItemGroup>
 
 </Project>
