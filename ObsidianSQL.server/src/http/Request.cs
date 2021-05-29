@@ -24,7 +24,7 @@ namespace ObsidianSQL.server.src.http
             if(request.InputStream != null)
             {
                 HttpBodyContent = GetBodyData(request.InputStream);
-                AuthToken = request.Headers.Get("Authorization")?.Replace("Bearer ", "");
+                AuthToken = request.Headers.Get("Authorization")?.Replace("Bearer", "").Trim();
             }
         }
 
