@@ -33,12 +33,12 @@ namespace ObsidianSQL.server.src.controller
                 return new Response(JsonSerializer.Serialize(databases));
             } else if (request.HttpMethod.ToLower() == "post")
             {
-                return new Response("");
+                CreateDatabase(request);
+                return new Response() { HttpStatusCode = 200 };
             } else
             {
                 throw new MethodNotAllowedException();
             }
-
         }
 
         private IConnection GetConnection(IRequest request)
@@ -49,6 +49,11 @@ namespace ObsidianSQL.server.src.controller
                 throw new AuthentificationFailedException();
             }
             return connection;
+        }
+
+        private void CreateDatabase(IRequest request)
+        {
+
         }
     }
 }

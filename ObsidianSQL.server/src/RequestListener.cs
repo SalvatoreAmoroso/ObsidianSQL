@@ -58,6 +58,13 @@ namespace ObsidianSQL.server
                 try
                 {
                     responseDTO = _router.ManageRequest(request);
+
+                    if(responseDTO.HttpStatusCode == 0)
+                    {
+                        throw new InvalidDataException("Invalid http status code.");
+                    }
+
+                    response.StatusCode = responseDTO.HttpStatusCode;
                     Log.Debug($"Request successfully processed");
                 }
                 catch (BadRequestException ex)

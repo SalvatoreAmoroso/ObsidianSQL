@@ -9,5 +9,7 @@ namespace ObsidianSQL.server.src.http
     public interface IResponse
     {
         public string Content { get; set; }
+        
+        public int HttpStatusCode { get; set; }
     }
 }
