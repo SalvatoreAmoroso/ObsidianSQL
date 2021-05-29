@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 using ObsidianSQL.library;
 using ObsidianSQL.library.mockup;
 using ObsidianSQL.library.sqlite;
-using ObsidianSQL.server.http;
+using ObsidianSQL.server.src.http;
 using ObsidianSQL.server.src.exceptions;
 
 namespace ObsidianSQL.server.db

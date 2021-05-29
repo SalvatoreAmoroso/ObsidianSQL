@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ObsidianSQL.library;
 using ObsidianSQL.server.src.exceptions;
-using ObsidianSQL.server.http;
-using ObsidianSQL.server.src;
+using ObsidianSQL.server.src.http;
 
 namespace ObsidianSQL.server
 {

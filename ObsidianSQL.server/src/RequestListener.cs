@@ -5,12 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.IO;
-using ObsidianSQL.server.src.http;
-using ObsidianSQL.server.src;
 using ObsidianSQL.library;
 using ObsidianSQL.server.src.exceptions;
 using Serilog;
-using ObsidianSQL.server.http;
+using ObsidianSQL.server.src.http;
 
 namespace ObsidianSQL.server
 {

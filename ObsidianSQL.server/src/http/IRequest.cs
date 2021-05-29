@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ObsidianSQL.server.http
+namespace ObsidianSQL.server.src.http
 {
     public interface IRequest
     {
