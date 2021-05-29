@@ -13,12 +13,6 @@ namespace ObsidianSQL.server
     class Router
     {
         private readonly List<Route> _routes = new();
-        private readonly Authentificator _auth;
-
-        public Router(Authentificator auth)
-        {
-            _auth = auth;
-        }
 
         public void RegisterRoute(Route route)
         {
@@ -38,7 +32,7 @@ namespace ObsidianSQL.server
             _routes.Remove(route);
         }
 
-        public IResponse Evaluate(IRequest request)
+        public IResponse ManageRequest(IRequest request)
         {
             var route = _routes.Find(x => x.Url == request.Url);
 
@@ -47,9 +41,7 @@ namespace ObsidianSQL.server
                 throw new RouteNotFoundException($"The following route is not defined: {request.Url.AbsoluteUri}.");
             }
 
-            IConnection con = _auth.Authentificate(request);
-
-            return route.RouteHandler.GetResponse(request, con);
+            return route.RouteHandler.GetResponse(request);
         }
     }
 }

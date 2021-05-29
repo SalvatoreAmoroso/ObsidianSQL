@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ObsidianSQL.server.controller;
-using ObsidianSQL.server.src;
+using ObsidianSQL.server.db;
+using ObsidianSQL.server.src.controller;
 
 namespace ObsidianSQL.server
 {
@@ -14,13 +14,13 @@ namespace ObsidianSQL.server
 
         private readonly Router _router;
 
-        private readonly Authentificator _auth;
+        private readonly ConnectionManager _connectionManager;
 
         public ObsidianSQL(string[] prefixes)
         {
-            _auth = new Authentificator();
-            _router = new Router(_auth);
+            _router = new Router();
             _requestListener = new RequestListener(prefixes, _router);
+            _connectionManager = new ConnectionManager();
             ConfigureRouter();
         }
 
@@ -32,7 +32,7 @@ namespace ObsidianSQL.server
         
         private void ConfigureRouter()
         {
-            _router.RegisterRoute(new Route(new Uri("http://lol.de/wtf"), new DatabaseController()));
+            _router.RegisterRoute(new Route(new Uri("login"), new LoginController(_connectionManager)));
             _router.RegisterRoute(new Route(new Uri("http://lol.de/rofl"), new DatabaseController()));
         }
     }

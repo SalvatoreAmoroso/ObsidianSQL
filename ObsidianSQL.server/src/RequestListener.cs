@@ -45,8 +45,8 @@ namespace ObsidianSQL.server
 
             try
             {
-                var responseDTO = _router.Evaluate(request);
-                var responseBuffer = Encoding.UTF8.GetBytes(responseDTO.ResponseText);
+                var responseDTO = _router.ManageRequest(request);
+                var responseBuffer = Encoding.UTF8.GetBytes(responseDTO.Content);
 
 
                 //Write Response
