@@ -25,14 +25,14 @@ namespace ObsidianSQL.library.mockup
             return 0;
         }
 
-        public void AddDatabase(IDatabase database)
+        public void AddDatabase(string database)
         {
-            Databases.Add(database);
+            Databases.Add(new Database(database));
         }
 
-        public void RemoveDatabase(IDatabase database)
+        public void RemoveDatabase(string database)
         {
-            Databases.Remove(database);
+            Databases.RemoveAll(db => db.Name == database);
         }
 
         public Connection()

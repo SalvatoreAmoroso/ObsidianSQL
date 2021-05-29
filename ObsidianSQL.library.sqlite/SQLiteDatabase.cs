@@ -32,29 +32,19 @@ namespace ObsidianSQL.library.sqlite
 		
 		public string Name { get; set; }
 		public List<ITable> Tables => _tables;
-		public void AddTable(ITable table)
+		public void AddTable(string table)
 		{
-			var name = table.Name;
-			var columns = table.Columns;
-
-			var command = "CREATE TABLE '" + name + "' (";
-			foreach (var column in columns)
-			{
-				command += column.Name + " " + column.Datatype + ", ";
-			}
-
-			command = command.Remove(command.Length - 2);
-			command += ")";
-
+			var command = "CREATE TABLE IF NOT EXISTS '" + table + "' ()";
+			
 			var tableCommand = _connection.Connection.CreateCommand();
 			tableCommand.CommandText = command;
 			tableCommand.ExecuteReader();
 		}
 
-		public void RemoveTable(ITable table)
+		public void RemoveTable(string table)
 		{
 			var command = _connection.Connection.CreateCommand();
-			command.CommandText = "DROP TABLE IF EXISTS '" + table.Name + "'";
+			command.CommandText = "DROP TABLE IF EXISTS '" + table + "'";
 			command.ExecuteNonQuery();
 		}
 
