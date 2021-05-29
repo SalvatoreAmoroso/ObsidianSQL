@@ -9,6 +9,7 @@ using ObsidianSQL.server.src.http;
 using ObsidianSQL.server.src;
 using ObsidianSQL.library;
 using ObsidianSQL.server.src.exceptions;
+using Serilog;
 
 namespace ObsidianSQL.server
 {

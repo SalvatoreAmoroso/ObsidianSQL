@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ObsidianSQL.server.db;
 using ObsidianSQL.server.src.controller;
+using Serilog;
 
 namespace ObsidianSQL.server
 {
@@ -21,6 +22,7 @@ namespace ObsidianSQL.server
             _router = new Router();
             _requestListener = new RequestListener(prefixes, _router);
             _connectionManager = new ConnectionManager();
+            ConfigureLogger();
             ConfigureRouter();
         }
 
@@ -34,10 +36,20 @@ namespace ObsidianSQL.server
         {
             _requestListener.HandleRequests();
         }
-        
+
         private void ConfigureRouter()
         {
             _router.RegisterRoute(new Route(new Uri("http://localhost:8080/login"), new LoginController(_connectionManager)));
+        }
+
+        private void ConfigureLogger()
+        {
+            Log.Logger = new LoggerConfiguration()
+#if DEBUG
+                .MinimumLevel.Debug()
+#endif
+                .WriteTo.Console()
+                .CreateLogger();
         }
     }
 }
