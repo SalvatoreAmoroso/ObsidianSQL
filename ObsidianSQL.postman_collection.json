@@ -1,0 +1,18 @@
+{
+	"info": {
+		"_postman_id": "7637c177-649a-4a07-98e0-02b1299f3352",
+		"name": "ObsidianSQL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login with SQLite",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		}
+	]
+}
