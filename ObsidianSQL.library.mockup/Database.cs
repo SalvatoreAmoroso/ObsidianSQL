@@ -17,14 +17,14 @@ namespace ObsidianSQL.library.mockup
             Console.WriteLine($"{query} executed.");
         }
 
-        public void AddTable(ITable table)
+        public void AddTable(string tableName)
         {
-            Tables.Add(table);
+            Tables.Add(new Table(tableName));
         }
 
-        public void RemoveTable(ITable table)
+        public void RemoveTable(string tableName)
         {
-            Tables.Remove(table);
+            Tables.RemoveAll(table => table.Name == tableName);
         }
 
         public Database(string name)
