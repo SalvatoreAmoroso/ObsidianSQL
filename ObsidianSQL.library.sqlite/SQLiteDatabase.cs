@@ -41,11 +41,19 @@ namespace ObsidianSQL.library.sqlite
 			tableCommand.ExecuteReader();
 		}
 
-		public void RemoveTable(string table)
+		public bool RemoveTable(string table)
 		{
 			var command = _connection.Connection.CreateCommand();
-			command.CommandText = "DROP TABLE IF EXISTS '" + table + "'";
-			command.ExecuteNonQuery();
+			command.CommandText = "DROP TABLE '" + table + "'";
+			try
+			{
+				command.ExecuteNonQuery();
+				return true;
+			}
+			catch (SQLiteException)
+			{
+				return false;
+			}
 		}
 
 		public void ExecuteQuery(string query)
