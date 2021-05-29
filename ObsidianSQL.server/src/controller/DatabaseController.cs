@@ -26,19 +26,29 @@ namespace ObsidianSQL.server.src.controller
         public IResponse GetDatabases(IRequest request)
         {
             var connection = GetConnection(request);
-            
-            if(request.HttpMethod.ToLower() == "get")
-            {
-                var databases = connection.Databases;
-                return new Response(JsonSerializer.Serialize(databases), 200);
-            } else if (request.HttpMethod.ToLower() == "post")
-            {
-                CreateDatabase(request);
-                return new Response(200);
-            } else
+
+            if (request.HttpMethod != "get")
             {
                 throw new MethodNotAllowedException();
             }
+
+            var databases = connection.Databases;
+
+            return new Response(JsonSerializer.Serialize(databases), 200);
+        }
+
+        public IResponse CreateDatabase(IRequest request)
+        {
+            var connection = GetConnection(request);
+
+            if(request.HttpMethod != "post")
+            {
+                throw new MethodNotAllowedException();
+            }
+
+            //TODO Create DB via connection
+
+            return new Response(200);
         }
 
         private IConnection GetConnection(IRequest request)
@@ -49,11 +59,6 @@ namespace ObsidianSQL.server.src.controller
                 throw new AuthentificationFailedException();
             }
             return connection;
-        }
-
-        private void CreateDatabase(IRequest request)
-        {
-
         }
     }
 }
