@@ -36,12 +36,13 @@ namespace ObsidianSQL.server
             string[] urlFragments = request.Url.Segments;
             
             var route = _routes.Find(r => RouteMatches(r, urlFragments));
-            request.UrlPlaceholderValues = GetPlaceholderValues(route, urlFragments);
 
             if(route == null)
             {
                 throw new RouteNotFoundException($"The following route is not defined: {request.Url.AbsoluteUri}.");
             }
+
+            request.UrlPlaceholderValues = GetPlaceholderValues(route, urlFragments);
 
             return route.HandleRoute.Invoke(request);
         }

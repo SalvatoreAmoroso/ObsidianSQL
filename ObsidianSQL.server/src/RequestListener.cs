@@ -52,14 +52,14 @@ namespace ObsidianSQL.server
 
                 //Manage Request
                 var response = context.Response;
-                
+
                 IResponse responseDTO = null;
 
                 try
                 {
                     responseDTO = _router.ManageRequest(request);
 
-                    if(responseDTO.HttpStatusCode == 0)
+                    if (responseDTO.HttpStatusCode == 0)
                     {
                         throw new InvalidDataException("Invalid http status code.");
                     }
@@ -92,15 +92,25 @@ namespace ObsidianSQL.server
                     Log.Error(ex.Message); ;
                     response.StatusCode = 405;
                 }
-
-                try
+                catch (DatabaseNotFoundException ex)
                 {
-                    JsonDocument.Parse(responseDTO.Content);
-                    response.Headers.Set("Content-Type", "application/json");
+                    Log.Error(ex.Message); ;
+                    response.StatusCode = 422;
                 }
-                catch (Exception) { }
 
-                var responseBuffer = responseDTO == null ? Array.Empty<byte>() : Encoding.UTF8.GetBytes(responseDTO.Content);
+
+                byte[] responseBuffer = Array.Empty<byte>();
+
+                if (responseDTO != null)
+                {
+                    responseBuffer = Encoding.UTF8.GetBytes(responseDTO.Content);
+                    try
+                    {
+                        JsonDocument.Parse(responseDTO.Content);
+                        response.Headers.Set("Content-Type", "application/json");
+                    }
+                    catch (JsonException) { }
+                }
 
                 using var output = response.OutputStream;
                 output.Write(responseBuffer);

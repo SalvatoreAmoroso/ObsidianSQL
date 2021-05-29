@@ -72,6 +72,11 @@ namespace ObsidianSQL.server.db
                     break;
             }
 
+            if(dbConnection == null)
+            {
+                throw new DatabaseNotFoundException(); 
+            }
+
             dbConnection.Connect();
             string token = GenerateToken();
             _connections.Add(new ActiveConnection(token, dbConnection));
