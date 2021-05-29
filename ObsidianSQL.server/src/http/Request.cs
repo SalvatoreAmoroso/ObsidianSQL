@@ -1,6 +1,7 @@
 ﻿using ObsidianSQL.server.src.http;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -16,6 +17,7 @@ namespace ObsidianSQL.server.src.http
         public string HttpBodyContent { get; set; }
         public string AuthToken { get; set; }
         public List<string> UrlPlaceholderValues { get; set; }
+        public NameValueCollection QueryParameters { get; set; }
 
         public Request(HttpListenerRequest request)
         {
@@ -25,6 +27,7 @@ namespace ObsidianSQL.server.src.http
             {
                 HttpBodyContent = GetBodyData(request.InputStream);
                 AuthToken = request.Headers.Get("Authorization")?.Replace("Bearer", "").Trim();
+                QueryParameters = request.QueryString;
             }
         }
 
