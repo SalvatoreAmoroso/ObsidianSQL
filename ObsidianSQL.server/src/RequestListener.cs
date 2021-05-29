@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.IO;
+using System.Text.Json;
 using ObsidianSQL.library;
 using ObsidianSQL.server.src.exceptions;
 using Serilog;
@@ -85,6 +86,12 @@ namespace ObsidianSQL.server
                     response.StatusCode = 405;
                 }
 
+                try
+                {
+                    JsonDocument.Parse(responseDTO.Content);
+                    response.Headers.Set("Content-Type", "application/json");
+                }
+                catch (Exception) { }
 
                 var responseBuffer = responseDTO == null ? Array.Empty<byte>() : Encoding.UTF8.GetBytes(responseDTO.Content);
 
