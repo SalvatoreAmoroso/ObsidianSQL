@@ -9,6 +9,7 @@ namespace ObsidianSQL.server
             string[] prefixes = { "http://lol/" };
 
             using ObsidianSQL app = new(prefixes);
+            app.Start();
 
             Console.ReadLine();
         }

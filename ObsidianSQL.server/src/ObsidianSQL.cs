@@ -26,9 +26,14 @@ namespace ObsidianSQL.server
 
         public void Dispose()
         {
+            _requestListener.Stop();
             _requestListener.Dispose();
         }
 
+        public void Start()
+        {
+            _requestListener.HandleRequests();
+        }
         
         private void ConfigureRouter()
         {

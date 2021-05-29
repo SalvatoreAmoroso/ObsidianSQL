@@ -18,6 +18,8 @@ namespace ObsidianSQL.server
 
         private readonly Router _router;
 
+        private bool _runServer;
+
         public RequestListener(string[] prefixes, Router router)
         {
             _router = router;
@@ -36,33 +38,43 @@ namespace ObsidianSQL.server
         /// </summary>
         public async void HandleRequests()
         {
-            //Wait for a request
-            var context = await _httpListener.GetContextAsync();
-            var request = new Request(context.Request);
+            _runServer = true;
 
-            //Manage Request
-            var response = context.Response;
-
-            try
+            while (_runServer)
             {
-                var responseDTO = _router.ManageRequest(request);
-                var responseBuffer = Encoding.UTF8.GetBytes(responseDTO.Content);
+                //Wait for a request
+                var context = await _httpListener.GetContextAsync();
+                var request = new Request(context.Request);
+
+                //Manage Request
+                var response = context.Response;
+
+                try
+                {
+                    var responseDTO = _router.ManageRequest(request);
+                    var responseBuffer = Encoding.UTF8.GetBytes(responseDTO.Content);
 
 
-                //Write Response
-                using var output = response.OutputStream;
-                output.Write(responseBuffer);
+                    //Write Response
+                    using var output = response.OutputStream;
+                    output.Write(responseBuffer);
+                }
+                catch (AuthentificationFailedException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    response.StatusCode = 401;
+                }
+                catch (RouteNotFoundException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    response.StatusCode = 404;
+                }
             }
-            catch (AuthentificationFailedException ex)
-            {
-                Console.WriteLine(ex.Message);
-                response.StatusCode = 401;
-            }
-            catch (RouteNotFoundException ex)
-            {
-                Console.WriteLine(ex.Message);
-                response.StatusCode = 404;
-            }
+        }
+
+        public void Stop()
+        {
+            _runServer = false;
         }
 
         public void Dispose()
