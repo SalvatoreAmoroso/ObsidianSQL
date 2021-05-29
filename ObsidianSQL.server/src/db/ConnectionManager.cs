@@ -40,7 +40,8 @@ namespace ObsidianSQL.server.db
             switch (databaseType)
             {
                 case "sqlite":
-                    dbConnection = new SQLiteConnection("");
+                    string filePath = requestBody.Value<string>("filepath").ToLower();
+                    dbConnection = new SQLiteConnection(filePath);
                     break;
             }
             
