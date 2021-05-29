@@ -51,6 +51,24 @@ namespace ObsidianSQL.server.src.controller
             return new Response(200);
         }
 
+        public IResponse GetDatabaseInfo(IRequest request)
+        {
+            var connection = GetConnection(request);
+            
+            if(request.HttpMethod != "get")
+            {
+                throw new MethodNotAllowedException();
+            }
+
+            var requestedName = request.UrlPlaceholderValues[0];
+            var database = connection.Databases.Find(db => db.Name == requestedName);
+
+            if (database == null)
+                throw new ResourceNotFoundException("Database does not exist");
+
+            return new Response(JsonSerializer.Serialize(database),200);
+        }
+
         private IConnection GetConnection(IRequest request)
         {
             var connection = _connectionManager.GetConnection(request.AuthToken);
