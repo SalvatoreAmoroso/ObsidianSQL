@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ObsidianSQL.library;
-using ObsidianSQL.server.db;
+using ObsidianSQL.server.src.db;
 using ObsidianSQL.server.src.http;
 using ObsidianSQL.server.src.exceptions;
 using System.Text.Json;
@@ -16,9 +16,9 @@ namespace ObsidianSQL.server.src.controller
     /// </summary>
     public class DatabaseController
     {
-        private readonly ConnectionManager _connectionManager;
+        private readonly IConnectionManager _connectionManager;
 
-        public DatabaseController(ConnectionManager con)
+        public DatabaseController(IConnectionManager con)
         {
             _connectionManager = con;
         }

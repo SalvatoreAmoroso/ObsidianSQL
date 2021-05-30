@@ -1,7 +1,7 @@
 using System;
 using ObsidianSQL.library;
 
-namespace ObsidianSQL.server.db
+namespace ObsidianSQL.server.src.db
 {
     public class ActiveConnection
     {
