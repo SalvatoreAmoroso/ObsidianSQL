@@ -42,31 +42,10 @@ namespace ObsidianSQL.server.src.db
                 throw new BadRequestException();
             }
             
-            IConnection dbConnection = null;
-            switch (databaseTypeToken.GetString())
-            {
-                case "sqlite":
-                    if (!connectionData.TryGetProperty("filepath", out var filePathToken))
-                    {
-                        throw new BadRequestException();
-                    }
-                    try
-                    {
-                        dbConnection = new SQLiteConnection(filePathToken.GetString());
-                    }
-                    catch (FileNotFoundException e)
-                    {
-                        throw new ResourceNotFoundException(e.Message);
-                    }
-                    break;
-            }
-
-            if(dbConnection == null)
-            {
-                throw new DatabaseTypeNotFoundException(); 
-            }
+            IConnection dbConnection = DBConnectionFactory.CreateConnection(databaseTypeToken.GetString(), connectionData);
 
             dbConnection.Connect();
+
             string token = GenerateToken();
             _connections.Add(new ActiveConnection(token, dbConnection));
             
