@@ -13,6 +13,7 @@ namespace ObsidianSQL.server.src.http
     public class Request : IRequest
     {
         public Uri Url { get; set; }
+        public string UserHostAddress { get; set; }
         public string HttpMethod { get; set; }
         public string HttpBodyContent { get; set; }
         public string AuthToken { get; set; }
@@ -22,6 +23,7 @@ namespace ObsidianSQL.server.src.http
         public Request(HttpListenerRequest request)
         {
             Url = request.Url;
+            UserHostAddress = request.UserHostAddress;
             HttpMethod = request.HttpMethod.ToLower();
             if(request.InputStream != null)
             {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Net;
 using System.IO;
 using System.Text.Json;
 using ObsidianSQL.library;
@@ -15,20 +14,20 @@ namespace ObsidianSQL.server
 {
     class RequestListener : IDisposable
     {
-        private readonly HttpListener _httpListener;
+        private readonly IHttpListener _httpListener;
 
         private readonly Router _router;
 
         private bool _runServer;
 
-        public RequestListener(string[] prefixes, Router router)
+        public RequestListener(IHttpListener httpListener, string[] prefixes, Router router)
         {
             _router = router;
 
-            _httpListener = new HttpListener();
+            _httpListener = httpListener;
 
             //Add prefixes to HttpListener
-            prefixes.ToList().ForEach(prefix => _httpListener.Prefixes.Add(prefix));
+            prefixes.ToList().ForEach(prefix => _httpListener.AddPrefix(prefix));
 
             //Start Listener
             _httpListener.Start();
@@ -45,85 +44,65 @@ namespace ObsidianSQL.server
             while (_runServer)
             {
                 //Wait for a request
-                var context = await _httpListener.GetContextAsync();
-                Log.Debug($"Received a request to '{context.Request.Url}' from {context.Request.UserHostAddress}");
+                var request = await _httpListener.WaitForRequest();
+                Log.Debug($"Received a request to '{request.Url}' from {request.UserHostAddress}");
 
-                var request = new Request(context.Request);
-
-                //Manage Request
-                var response = context.Response;
-
-                IResponse responseDto = null;
+                IResponse response = new Response("", 0);
 
                 try
                 {
-                    responseDto = _router.ManageRequest(request);
+                    response = _router.ManageRequest(request);
 
-                    if (responseDto.HttpStatusCode == 0)
+                    if (response.HttpStatusCode == 0)
                     {
                         throw new InvalidDataException("Invalid http status code.");
                     }
 
-                    response.StatusCode = responseDto.HttpStatusCode;
+                    response.HttpStatusCode = response.HttpStatusCode;
                     Log.Debug($"Request successfully processed");
                 }
                 catch (BadRequestException ex)
                 {
                     Log.Error(ex.Message);
-                    response.StatusCode = 400;
+                    response.HttpStatusCode = 400;
                 }
                 catch (AuthenticationFailedException ex)
                 {
                     Log.Error(ex.Message);
-                    response.StatusCode = 401;
+                    response.HttpStatusCode = 401;
                 }
                 catch (UnauthorizedAccessException ex)
                 {
                     Log.Error(ex.Message);
-                    response.StatusCode = 403;
+                    response.HttpStatusCode = 403;
                 }
                 catch (DatabaseNotFoundException ex)
                 {
                     Log.Error(ex.Message); ;
-                    response.StatusCode = 404;
+                    response.HttpStatusCode = 404;
                 }
                 catch (RouteNotFoundException ex)
                 {
                     Log.Error(ex.Message); ;
-                    response.StatusCode = 404;
+                    response.HttpStatusCode = 404;
                 }
                 catch (ResourceNotFoundException ex)
                 {
                     Log.Error(ex.Message); ;
-                    response.StatusCode = 404;
+                    response.HttpStatusCode = 404;
                 }
                 catch (MethodNotAllowedException ex)
                 {
                     Log.Error(ex.Message); ;
-                    response.StatusCode = 405;
+                    response.HttpStatusCode = 405;
                 }
                 catch (DatabaseTypeNotFoundException ex)
                 {
                     Log.Error(ex.Message); ;
-                    response.StatusCode = 422;
+                    response.HttpStatusCode = 422;
                 }
 
-
-                var responseBuffer = Array.Empty<byte>();
-
-                if (responseDto != null)
-                {
-                    responseBuffer = Encoding.UTF8.GetBytes(responseDto.Content);
-                    try
-                    {
-                        JsonDocument.Parse(responseDto.Content);
-                        response.Headers.Set("Content-Type", "application/json");
-                    }
-                    catch (JsonException) { }
-                }
-
-                using var output = response.OutputStream;
-                output.Write(responseBuffer);
+                _httpListener.WriteResponse(request, response);
                 Log.Debug("Response sent");
             }
         }

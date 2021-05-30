@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using ObsidianSQL.server.db;
 using ObsidianSQL.server.src.controller;
+using ObsidianSQL.server.src.http;
 using Serilog;
 
 namespace ObsidianSQL.server
 {
     class ObsidianSQL : IDisposable
     {
+        private readonly IHttpListener _httpListener;
         private readonly RequestListener _requestListener;
         private readonly Router _router;
         private readonly LoginController _loginController;
@@ -21,7 +23,8 @@ namespace ObsidianSQL.server
         {
             ConfigureLogger();
             _router = new Router();
-            _requestListener = new RequestListener(prefixes, _router);
+            _httpListener = new HttpListener();
+            _requestListener = new RequestListener(_httpListener, prefixes, _router);
             var connectionManager = new ConnectionManager();
             _loginController = new LoginController(connectionManager);
             _dbController = new DatabaseController(connectionManager);
