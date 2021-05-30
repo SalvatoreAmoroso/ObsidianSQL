@@ -19,9 +19,8 @@ namespace ObsidianSQL.library.sqlite
 		{
 			_tables = new List<ITable>();
 			
-			var tableNamesCommand = _connection.Connection.CreateCommand();
-			tableNamesCommand.CommandText = "SELECT name FROM sqlite_master WHERE type='table'";
-			var tableNameReader = tableNamesCommand.ExecuteReader();
+			var cmd = "SELECT name FROM sqlite_master WHERE type='table'";
+			var tableNameReader = QueryHelper.ExecuteDatabaseQuery(_connection, cmd);
 			while (tableNameReader.Read())
 			{
 				var tableName = tableNameReader.GetString(0);
@@ -35,19 +34,16 @@ namespace ObsidianSQL.library.sqlite
 		public void AddTable(string table)
 		{
 			var command = "CREATE TABLE IF NOT EXISTS '" + table + "' ()";
-			
-			var tableCommand = _connection.Connection.CreateCommand();
-			tableCommand.CommandText = command;
-			tableCommand.ExecuteReader();
+
+			QueryHelper.ExecuteDatabaseQuery(_connection, command);
 		}
 
 		public bool RemoveTable(string table)
 		{
-			var command = _connection.Connection.CreateCommand();
-			command.CommandText = "DROP TABLE '" + table + "'";
+			var command = "DROP TABLE '" + table + "'";
 			try
 			{
-				command.ExecuteNonQuery();
+				QueryHelper.ExecuteDatabaseCommand(_connection, command);
 				return true;
 			}
 			catch (SQLiteException)
@@ -58,7 +54,7 @@ namespace ObsidianSQL.library.sqlite
 
 		public void ExecuteQuery(string query)
 		{
-			_connection.ExecuteQuery(query);
+			QueryHelper.ExecuteDatabaseCommand(_connection, query);
 		}
 	}
 }

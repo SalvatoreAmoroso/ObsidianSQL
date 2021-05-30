@@ -21,9 +21,8 @@ namespace ObsidianSQL.library.sqlite
 		public ITableColumn[] Columns => _columns;
 		public ITableRow[] GetData(int start, int end)
 		{
-			var readCommand = _connection.Connection.CreateCommand();
-			readCommand.CommandText = "SELECT * FROM '" + _name + "' LIMIT " + start + ", " + (end - start);
-			var reader = readCommand.ExecuteReader();
+			var readCommand = "SELECT * FROM '" + _name + "' LIMIT " + start + ", " + (end - start);
+			var reader = QueryHelper.ExecuteDatabaseQuery(_connection, readCommand);
 
 			SQLiteTableRow[] result = new SQLiteTableRow[end - start + 1];
 			int resultCounter = 0;
@@ -46,24 +45,21 @@ namespace ObsidianSQL.library.sqlite
 
 		private void ChangeName(string newName)
 		{
-			var command = _connection.Connection.CreateCommand();
-			command.CommandText = "ALTER TABLE '"+_name+"' RENAME TO '"+newName+"'";
-			command.ExecuteNonQuery();
+			var command = "ALTER TABLE '"+_name+"' RENAME TO '"+newName+"'";
+			QueryHelper.ExecuteDatabaseCommand(_connection, command);
 			_name = newName;
 		}
 
 		private void LoadColumns()
 		{
-			var tableColumnCountCommand = _connection.Connection.CreateCommand();
-			tableColumnCountCommand.CommandText = "SELECT * FROM '" + _name + "' LIMIT 1";
-			var tableColumnCountReader = tableColumnCountCommand.ExecuteReader();
+			var tableColumnCountCommand = "SELECT * FROM '" + _name + "' LIMIT 1";
+			var tableColumnCountReader = QueryHelper.ExecuteDatabaseQuery(_connection, tableColumnCountCommand);
 			int tableColumnsLength = tableColumnCountReader.FieldCount;
 			_columns = new SQLiteTableColumn[tableColumnsLength];
 			tableColumnCountReader.Close();
 
-			var tableColumnCommand = _connection.Connection.CreateCommand();
-			tableColumnCommand.CommandText = "PRAGMA table_info(" + _name + ")";
-			var tableColumnReader = tableColumnCommand.ExecuteReader();
+			var tableColumnCommand = "PRAGMA table_info(" + _name + ")";
+			var tableColumnReader = QueryHelper.ExecuteDatabaseQuery(_connection, tableColumnCommand);
 			
 			int tableColumnCounter = 0;
 			while (tableColumnReader.Read())
