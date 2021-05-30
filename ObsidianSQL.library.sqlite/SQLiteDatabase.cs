@@ -8,8 +8,9 @@ namespace ObsidianSQL.library.sqlite
 	{
 		private SQLiteConnection _connection;
 		private List<ITable> _tables;
+		private QueryHelper _queryHelper;
 
-		public SQLiteDatabase(SQLiteConnection connection)
+		public SQLiteDatabase(SQLiteConnection connection, QueryHelper qh)
 		{
 			_connection = connection;
 			LoadTables();
@@ -19,13 +20,12 @@ namespace ObsidianSQL.library.sqlite
 		{
 			_tables = new List<ITable>();
 			
-			var tableNamesCommand = _connection.Connection.CreateCommand();
-			tableNamesCommand.CommandText = "SELECT name FROM sqlite_master WHERE type='table'";
-			var tableNameReader = tableNamesCommand.ExecuteReader();
+			var cmd = "SELECT name FROM sqlite_master WHERE type='table'";
+			var tableNameReader = _queryHelper.ExecuteDatabaseQuery(_connection, cmd);
 			while (tableNameReader.Read())
 			{
 				var tableName = tableNameReader.GetString(0);
-				_tables.Add(new SQLiteTable(_connection, tableName));
+				_tables.Add(new SQLiteTable(_connection, new QueryHelper(), tableName));
 			}
 			tableNameReader.Close();
 		}
@@ -35,19 +35,16 @@ namespace ObsidianSQL.library.sqlite
 		public void AddTable(string table)
 		{
 			var command = "CREATE TABLE IF NOT EXISTS '" + table + "' ()";
-			
-			var tableCommand = _connection.Connection.CreateCommand();
-			tableCommand.CommandText = command;
-			tableCommand.ExecuteReader();
+
+			_queryHelper.ExecuteDatabaseQuery(_connection, command);
 		}
 
 		public bool RemoveTable(string table)
 		{
-			var command = _connection.Connection.CreateCommand();
-			command.CommandText = "DROP TABLE '" + table + "'";
+			var command = "DROP TABLE '" + table + "'";
 			try
 			{
-				command.ExecuteNonQuery();
+				_queryHelper.ExecuteDatabaseCommand(_connection, command);
 				return true;
 			}
 			catch (SQLiteException)
@@ -58,7 +55,7 @@ namespace ObsidianSQL.library.sqlite
 
 		public void ExecuteQuery(string query)
 		{
-			_connection.ExecuteQuery(query);
+			_queryHelper.ExecuteDatabaseCommand(_connection, query);
 		}
 	}
 }
