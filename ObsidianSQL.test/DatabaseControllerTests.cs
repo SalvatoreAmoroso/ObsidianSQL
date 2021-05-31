@@ -39,9 +39,9 @@ namespace ObsidianSQL.test
             JsonDocument doc = JsonDocument.Parse(response.Content);
             var databaseElements = doc.RootElement.EnumerateArray().ToArray();
 
-            Assert.IsTrue(response.HttpStatusCode == 200);
-            Assert.IsTrue(databaseElements.Length == 1);
-            Assert.IsTrue(databaseElements[0].GetProperty("Name").GetString() == "testdb");
+            Assert.AreEqual(200, response.HttpStatusCode);
+            Assert.AreEqual(1, databaseElements.Length);
+            Assert.AreEqual("testdb", databaseElements[0].GetProperty("Name").GetString());
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace ObsidianSQL.test
             var response = dbController.CreateDatabase(request);
 
             //Assert
-            Assert.IsTrue(response.HttpStatusCode == 201);
+            Assert.AreEqual(201, response.HttpStatusCode);
             Assert.IsNotNull(connection.Databases.Find(db => db.Name == "newDatabase"));
         }
 
@@ -96,8 +96,8 @@ namespace ObsidianSQL.test
             var response = dbController.DeleteDatabase(request);
 
 
-            Assert.IsTrue(connection.Databases.Count == 1);
-            Assert.IsTrue(response.HttpStatusCode == 200);
+            Assert.AreEqual(1, connection.Databases.Count);
+            Assert.AreEqual(200, response.HttpStatusCode);
         }
 
         [TestMethod]
