@@ -9,11 +9,13 @@ namespace ObsidianSQL.library.sqlite
 		private SQLiteConnection _connection;
 		private string _name;
 		private SQLiteTableColumn[] _columns;
+		private QueryHelper _queryHelper;
 
-		public SQLiteTable(SQLiteConnection connection, string name)
+		public SQLiteTable(SQLiteConnection connection, QueryHelper queryHelper, string name)
 		{
 			_connection = connection;
 			_name = name;
+			_queryHelper = queryHelper;
 			LoadColumns();
 		}
 		
@@ -21,9 +23,8 @@ namespace ObsidianSQL.library.sqlite
 		public ITableColumn[] Columns => _columns;
 		public ITableRow[] GetData(int start, int end)
 		{
-			var readCommand = _connection.Connection.CreateCommand();
-			readCommand.CommandText = "SELECT * FROM '" + _name + "' LIMIT " + start + ", " + (end - start);
-			var reader = readCommand.ExecuteReader();
+			var readCommand = "SELECT * FROM '" + _name + "' LIMIT " + start + ", " + (end - start);
+			var reader = _queryHelper.ExecuteDatabaseQuery(_connection, readCommand);
 
 			SQLiteTableRow[] result = new SQLiteTableRow[end - start + 1];
 			int resultCounter = 0;
@@ -46,24 +47,21 @@ namespace ObsidianSQL.library.sqlite
 
 		private void ChangeName(string newName)
 		{
-			var command = _connection.Connection.CreateCommand();
-			command.CommandText = "ALTER TABLE '"+_name+"' RENAME TO '"+newName+"'";
-			command.ExecuteNonQuery();
+			var command = "ALTER TABLE '"+_name+"' RENAME TO '"+newName+"'";
+			_queryHelper.ExecuteDatabaseCommand(_connection, command);
 			_name = newName;
 		}
 
 		private void LoadColumns()
 		{
-			var tableColumnCountCommand = _connection.Connection.CreateCommand();
-			tableColumnCountCommand.CommandText = "SELECT * FROM '" + _name + "' LIMIT 1";
-			var tableColumnCountReader = tableColumnCountCommand.ExecuteReader();
+			var tableColumnCountCommand = "SELECT * FROM '" + _name + "' LIMIT 1";
+			var tableColumnCountReader = _queryHelper.ExecuteDatabaseQuery(_connection, tableColumnCountCommand);
 			int tableColumnsLength = tableColumnCountReader.FieldCount;
 			_columns = new SQLiteTableColumn[tableColumnsLength];
 			tableColumnCountReader.Close();
 
-			var tableColumnCommand = _connection.Connection.CreateCommand();
-			tableColumnCommand.CommandText = "PRAGMA table_info(" + _name + ")";
-			var tableColumnReader = tableColumnCommand.ExecuteReader();
+			var tableColumnCommand = "PRAGMA table_info(" + _name + ")";
+			var tableColumnReader = _queryHelper.ExecuteDatabaseQuery(_connection, tableColumnCommand);
 			
 			int tableColumnCounter = 0;
 			while (tableColumnReader.Read())
