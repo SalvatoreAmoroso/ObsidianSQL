@@ -13,16 +13,14 @@ namespace ObsidianSQL.server.src.db
 {
     public class DBConnectionFactory
     {
-        private static readonly Dictionary<string, Func<JsonElement, IConnection>> Connections = new()
+        private static readonly Dictionary<string, Func<JsonElement, IConnection>> _connections = new()
         {
             { "sqlite", CreateSQLiteConnection }
         };
 
         public static IConnection CreateConnection(string databaseType, JsonElement connectionData)
         {
-            var CreateConnection = Connections[databaseType];
-
-            if(CreateConnection == null)
+            if (!_connections.TryGetValue(databaseType, out var CreateConnection))
             {
                 throw new DatabaseTypeNotFoundException();
             }
