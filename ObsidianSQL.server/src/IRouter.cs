@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ObsidianSQL.server.src
 {
-    interface IRouter
+    public interface IRouter
     {
         public void RegisterRoute(Route route);
         public void RegisterRoute(ICollection<Route> routes);

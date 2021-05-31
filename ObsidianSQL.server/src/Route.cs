@@ -8,7 +8,7 @@ using ObsidianSQL.server.src.http;
 
 namespace ObsidianSQL.server
 {
-    class Route
+    public class Route
     {
         public readonly string[] Url;
 

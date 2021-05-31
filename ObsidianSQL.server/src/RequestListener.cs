@@ -13,7 +13,7 @@ using ObsidianSQL.server.src;
 
 namespace ObsidianSQL.server
 {
-    class RequestListener : IDisposable
+    public class RequestListener : IDisposable
     {
         private readonly IHttpListener _httpListener;
 

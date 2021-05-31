@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ObsidianSQL.server.src.http
 {
-    interface IHttpListener
+    public interface IHttpListener
     {
         public void AddPrefix(string prefix);
         public Task<IRequest> WaitForRequest();

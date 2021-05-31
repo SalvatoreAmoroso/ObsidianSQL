@@ -10,7 +10,7 @@ using ObsidianSQL.server.src.http;
 
 namespace ObsidianSQL.server
 {
-    class Router : IRouter
+    public class Router : IRouter
     {
         private readonly List<Route> _routes = new();
 

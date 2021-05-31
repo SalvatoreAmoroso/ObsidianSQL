@@ -2,7 +2,7 @@
 
 namespace ObsidianSQL.server.src.exceptions
 {
-    class BadRequestException : Exception
+    public class BadRequestException : Exception
     {
         public BadRequestException()
         {

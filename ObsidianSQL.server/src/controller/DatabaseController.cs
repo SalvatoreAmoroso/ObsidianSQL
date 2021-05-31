@@ -61,7 +61,7 @@ namespace ObsidianSQL.server.src.controller
 
             connection.AddDatabase(databaseName.GetString());
 
-            return new Response(200);
+            return new Response(201);
         }
 
         public IResponse GetDatabaseInfo(IRequest request)

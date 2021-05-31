@@ -33,6 +33,8 @@ namespace ObsidianSQL.server.src.http
             }
         }
 
+        public Request() { }
+
         private static string GetBodyData(Stream stream)
         {
             using StreamReader reader = new(stream);
