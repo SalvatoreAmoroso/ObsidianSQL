@@ -79,5 +79,18 @@ namespace ObsidianSQL.test
             Assert.AreEqual("test2", fakeListener.Prefixes[1]);
             Assert.AreEqual("test3", fakeListener.Prefixes[2]);
         }
+
+        [TestMethod]
+        public void ListenerGetsStartedAndClosed()
+        {
+            FakeHttpListener fakeListener = new();
+
+            RequestListener listener = new(fakeListener, new string[] {}, null);
+
+            Assert.IsTrue(fakeListener.IsStarted);
+
+            listener.Dispose();
+            Assert.IsTrue(fakeListener.IsClosed);
+        }
     }
 }
