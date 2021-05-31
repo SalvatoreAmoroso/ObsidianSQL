@@ -3,11 +3,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ObsidianSQL.test
 {
     [TestClass]
-    public class UnitTest1
+    public class RequestListenerTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void RequestIsPassedToRouterTest()
         {
+            
         }
     }
 }
