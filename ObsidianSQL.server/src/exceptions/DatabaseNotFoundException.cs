@@ -2,7 +2,7 @@
 
 namespace ObsidianSQL.server.src.exceptions
 {
-    class DatabaseNotFoundException : Exception
+    public class DatabaseNotFoundException : Exception
     {
         public DatabaseNotFoundException()
         {
