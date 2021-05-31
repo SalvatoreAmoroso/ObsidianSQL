@@ -46,7 +46,22 @@ namespace ObsidianSQL.server.src.controller
                 throw new MethodNotAllowedException();
             }
 
-            //TODO Create DB via connection
+            JsonElement databaseData;
+
+            try
+            {
+                databaseData = JsonDocument.Parse(request.HttpBodyContent).RootElement;
+            }
+            catch (JsonException)
+            {
+                throw new BadRequestException();
+            }
+
+            if(!databaseData.TryGetProperty("databaseName", out var databaseName)) {
+                throw new BadRequestException();
+            }
+
+            connection.AddDatabase(databaseName.GetString());
 
             return new Response(200);
         }
