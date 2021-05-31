@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ObsidianSQL.library;
 using ObsidianSQL.library.mockup;
 using ObsidianSQL.server.src.db;
 using ObsidianSQL.test.FakeObjects;
@@ -18,25 +20,17 @@ namespace ObsidianSQL.test
         [TestMethod]
         public void CreateConnectionTest()
         {
-            FakeConnectionManager fakeConnectionManager = new();
+            ConnectionManager connectionManager = new(new FakeConnectionFactory());
+            dynamic jsonObj = new ExpandoObject();
+            jsonObj.databaseType = "testType";
+            var doc = JsonDocument.Parse(JsonSerializer.Serialize(jsonObj));
 
-            var token1 = fakeConnectionManager.CreateConnection(new JsonElement());
-            var token2 = fakeConnectionManager.CreateConnection(new JsonElement());
+            var token = connectionManager.CreateConnection(doc.RootElement);
 
-            Assert.IsTrue(fakeConnectionManager.Connections.Count == 2);
-            Assert.IsTrue(fakeConnectionManager.Connections[0].Token == token1);
-            Assert.IsTrue(fakeConnectionManager.Connections[1].Token == token2);
-        }
-
-        [TestMethod]
-        public void GetConnectionTest()
-        {
-            FakeConnectionManager fakeConnectionManager = new();
-            fakeConnectionManager.Connections.Add(new ActiveConnection("token1", new Connection()));
-
-            var connection = fakeConnectionManager.GetConnection("token1");
+            Connection connection = connectionManager.GetConnection(token);
 
             Assert.IsNotNull(connection);
+            Assert.IsTrue(connection.Connected);
         }
     }
 }

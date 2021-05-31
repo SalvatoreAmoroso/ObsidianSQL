@@ -9,19 +9,22 @@ namespace ObsidianSQL.library.mockup
     public class Connection : IConnection
     {
         public List<IDatabase> Databases { get; set; }
+        public bool Connected { get; private set; } = false;
+        public string ExecutedQuery { get; private set; }
+
         public void Connect()
         {
-            Console.WriteLine($"Connected from DB.");
+            Connected = true;
         }
 
         public void Disconnect()
         {
-            Console.WriteLine($"Disconnected from DB.");
+            Connected = false;
         }
 
         public int ExecuteQuery(string query)
         {
-            Console.WriteLine($"{query} executed.");
+            ExecutedQuery = query;
             return 0;
         }
 
