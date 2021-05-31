@@ -14,10 +14,8 @@ namespace ObsidianSQL.server.src.controller
     /// <summary>
     /// Mögliches Refactoring: Statt Interface Abstrakten Controller, welche ConnectionManager und Methode um aus Request Connection zu bekommen enthält
     /// </summary>
-    public class DatabaseController
+    public class DatabaseController : AbstractController
     {
-        private readonly IConnectionManager _connectionManager;
-
         public DatabaseController(IConnectionManager con)
         {
             _connectionManager = con;
@@ -101,16 +99,6 @@ namespace ObsidianSQL.server.src.controller
             }
 
             throw new DatabaseNotFoundException();
-        }
-
-        private IConnection GetConnection(IRequest request)
-        {
-            var connection = _connectionManager.GetConnection(request.AuthToken);
-            if(connection == null)
-            {
-                throw new AuthenticationFailedException();
-            }
-            return connection;
         }
     }
 }

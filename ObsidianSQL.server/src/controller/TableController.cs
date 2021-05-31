@@ -8,10 +8,8 @@ using ObsidianSQL.server.src.http;
 
 namespace ObsidianSQL.server.src.controller
 {
-	public class TableController
+	public class TableController : AbstractController
 	{
-		private readonly IConnectionManager _connectionManager;
-
 		public TableController(IConnectionManager con)
 		{
 			_connectionManager = con;
@@ -71,16 +69,6 @@ namespace ObsidianSQL.server.src.controller
 			var data = table.GetData(start, end).ToList().FindAll(row => row != null);
 			Console.WriteLine(data[0]);
 			return new Response(JsonSerializer.Serialize(data),200);
-		}
-		
-		private IConnection GetConnection(IRequest request)
-		{
-			var connection = _connectionManager.GetConnection(request.AuthToken);
-			if(connection == null)
-			{
-				throw new AuthenticationFailedException();
-			}
-			return connection;
 		}
 	}
 }

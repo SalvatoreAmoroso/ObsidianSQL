@@ -13,10 +13,8 @@ using Serilog;
 
 namespace ObsidianSQL.server.src.controller
 {
-    public class LoginController
+    public class LoginController : AbstractController
     {
-        private readonly IConnectionManager _connectionManager;
-
         public LoginController(IConnectionManager con)
         {
             _connectionManager = con;
