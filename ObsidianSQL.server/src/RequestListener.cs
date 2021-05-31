@@ -9,6 +9,7 @@ using ObsidianSQL.library;
 using ObsidianSQL.server.src.exceptions;
 using Serilog;
 using ObsidianSQL.server.src.http;
+using ObsidianSQL.server.src;
 
 namespace ObsidianSQL.server
 {
@@ -16,11 +17,11 @@ namespace ObsidianSQL.server
     {
         private readonly IHttpListener _httpListener;
 
-        private readonly Router _router;
+        private readonly IRouter _router;
 
         private bool _runServer;
 
-        public RequestListener(IHttpListener httpListener, string[] prefixes, Router router)
+        public RequestListener(IHttpListener httpListener, string[] prefixes, IRouter router)
         {
             _router = router;
 
