@@ -11,14 +11,14 @@ using System.IO;
 
 namespace ObsidianSQL.server.src.db
 {
-    public class DBConnectionFactory
+    public class DBConnectionFactory : IConnectionFactory
     {
         private static readonly Dictionary<string, Func<JsonElement, IConnection>> _connections = new()
         {
             { "sqlite", CreateSQLiteConnection }
         };
 
-        public static IConnection CreateConnection(string databaseType, JsonElement connectionData)
+        public IConnection CreateConnection(string databaseType, JsonElement connectionData)
         {
             if (!_connections.TryGetValue(databaseType, out var CreateConnection))
             {
