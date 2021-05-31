@@ -13,13 +13,15 @@ namespace ObsidianSQL.server.src.db
 {
     public class ConnectionManager : IConnectionManager
     {
+        private IConnectionFactory _connectionFactory;
         private readonly List<ActiveConnection> _connections;
 
-        public ConnectionManager()
+        public ConnectionManager(IConnectionFactory connectionFactory)
         {
+            _connectionFactory = connectionFactory;
             _connections = new List<ActiveConnection>();
         }
-        
+
         /// <summary>
         /// Get an existing connection from a given token
         /// </summary>
@@ -42,7 +44,7 @@ namespace ObsidianSQL.server.src.db
                 throw new BadRequestException();
             }
             
-            IConnection dbConnection = DBConnectionFactory.CreateConnection(databaseTypeToken.GetString(), connectionData);
+            IConnection dbConnection = _connectionFactory.CreateConnection(databaseTypeToken.GetString(), connectionData);
 
             dbConnection.Connect();
 
