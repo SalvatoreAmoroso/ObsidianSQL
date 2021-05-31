@@ -21,7 +21,7 @@ namespace ObsidianSQL.test
         {
             //Arrange
             FakeConnectionManager fakeManager = new();
-            var token = fakeManager.CreateConnection(new JsonElement());
+            var token = fakeManager.AddConnection(new JsonElement());
             fakeManager.GetConnection(token).AddDatabase("testdb");
 
             DatabaseController dbController = new(fakeManager);
@@ -49,7 +49,7 @@ namespace ObsidianSQL.test
         {
             //Arrange
             FakeConnectionManager fakeManager = new();
-            var token = fakeManager.CreateConnection(new JsonElement());
+            var token = fakeManager.AddConnection(new JsonElement());
             var connection = fakeManager.GetConnection(token);
 
             DatabaseController dbController = new(fakeManager);
@@ -77,7 +77,7 @@ namespace ObsidianSQL.test
         {
             //Arrange
             FakeConnectionManager fakeManager = new();
-            var token = fakeManager.CreateConnection(new JsonElement());
+            var token = fakeManager.AddConnection(new JsonElement());
             var connection = fakeManager.GetConnection(token);
             DatabaseController dbController = new(fakeManager);
 
@@ -106,7 +106,7 @@ namespace ObsidianSQL.test
         {
             //Arrange
             FakeConnectionManager fakeManager = new();
-            var token = fakeManager.CreateConnection(new JsonElement());
+            var token = fakeManager.AddConnection(new JsonElement());
             var connection = fakeManager.GetConnection(token);
             DatabaseController dbController = new(fakeManager);
 

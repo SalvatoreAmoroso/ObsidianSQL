@@ -16,7 +16,7 @@ namespace ObsidianSQL.test.FakeObjects
         public List<ActiveConnection> Connections { get; set; } = new();
         private int counter = 0;
 
-        public string CreateConnection(JsonElement connectionData)
+        public string AddConnection(JsonElement connectionData)
         {
             string token = $"fakeToken{++counter}";
             Connections.Add(new ActiveConnection(token, new Connection()));

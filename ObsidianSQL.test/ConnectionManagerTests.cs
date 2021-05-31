@@ -25,7 +25,7 @@ namespace ObsidianSQL.test
             jsonObj.databaseType = "testType";
             var doc = JsonDocument.Parse(JsonSerializer.Serialize(jsonObj));
 
-            var token = connectionManager.CreateConnection(doc.RootElement);
+            var token = connectionManager.AddConnection(doc.RootElement);
 
             Connection connection = connectionManager.GetConnection(token);
 

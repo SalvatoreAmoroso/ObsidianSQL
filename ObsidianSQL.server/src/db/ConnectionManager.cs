@@ -37,7 +37,7 @@ namespace ObsidianSQL.server.src.db
         /// </summary>
         /// <param name="request">The request from the user</param>
         /// <returns>The token for the user</returns>
-        public string CreateConnection(JsonElement connectionData)
+        public string AddConnection(JsonElement connectionData)
         {
             if(!connectionData.TryGetProperty("databaseType", out var databaseTypeToken))
             {

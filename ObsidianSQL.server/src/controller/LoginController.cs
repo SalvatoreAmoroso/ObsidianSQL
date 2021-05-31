@@ -38,7 +38,7 @@ namespace ObsidianSQL.server.src.controller
             }
 
             dynamic tokenResponse = new ExpandoObject();
-            tokenResponse.token = _connectionManager.CreateConnection(connectionData);
+            tokenResponse.token = _connectionManager.AddConnection(connectionData);
 
             var json = JsonSerializer.Serialize(tokenResponse);
             return new Response(json, 200);

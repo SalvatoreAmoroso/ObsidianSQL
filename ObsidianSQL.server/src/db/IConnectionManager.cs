@@ -22,6 +22,6 @@ namespace ObsidianSQL.server.src.db
         /// </summary>
         /// <param name="connectionData">JSON, which contains all necessary data for authentication (e.g. username and password)</param>
         /// <returns>Token</returns>
-        public string CreateConnection(JsonElement connectionData);
+        public string AddConnection(JsonElement connectionData);
     }
 }
