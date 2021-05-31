@@ -13,6 +13,7 @@ namespace ObsidianSQL.library.sqlite
 		public SQLiteDatabase(SQLiteConnection connection, QueryHelper qh)
 		{
 			_connection = connection;
+			_queryHelper = qh;
 			LoadTables();
 		}
 
