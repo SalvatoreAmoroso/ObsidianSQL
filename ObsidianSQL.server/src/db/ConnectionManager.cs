@@ -1,26 +1,27 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using ObsidianSQL.library;
 using ObsidianSQL.library.mockup;
 using ObsidianSQL.library.sqlite;
 using ObsidianSQL.server.src.http;
 using ObsidianSQL.server.src.exceptions;
 using Serilog;
+using System.Text.Json;
 
-namespace ObsidianSQL.server.db
+namespace ObsidianSQL.server.src.db
 {
-    public class ConnectionManager
+    public class ConnectionManager : IConnectionManager
     {
-        private List<ActiveConnection> _connections;
+        private IConnectionFactory _connectionFactory;
+        private readonly List<ActiveConnection> _connections;
 
-        public ConnectionManager()
+        public ConnectionManager(IConnectionFactory connectionFactory)
         {
+            _connectionFactory = connectionFactory;
             _connections = new List<ActiveConnection>();
         }
-        
+
         /// <summary>
         /// Get an existing connection from a given token
         /// </summary>
@@ -36,48 +37,17 @@ namespace ObsidianSQL.server.db
         /// </summary>
         /// <param name="request">The request from the user</param>
         /// <returns>The token for the user</returns>
-        public string CreateConnection(IRequest request)
+        public string CreateConnection(JsonElement connectionData)
         {
-            JObject requestBody;
-            try
-            {
-                requestBody = JObject.Parse(request.HttpBodyContent);
-            }
-            catch (JsonReaderException)
-            {   
-                throw new BadRequestException();
-            }
-
-            if(!requestBody.TryGetValue("databaseType", out var databaseTypeToken))
+            if(!connectionData.TryGetProperty("databaseType", out var databaseTypeToken))
             {
                 throw new BadRequestException();
             }
             
-            IConnection dbConnection = null;
-            switch (databaseTypeToken.ToString())
-            {
-                case "sqlite":
-                    if (!requestBody.TryGetValue("filepath", out var filePathToken))
-                    {
-                        throw new BadRequestException();
-                    }
-                    try
-                    {
-                        dbConnection = new SQLiteConnection(filePathToken.ToString());
-                    }
-                    catch (FileNotFoundException e)
-                    {
-                        throw new ResourceNotFoundException(e.Message);
-                    }
-                    break;
-            }
-
-            if(dbConnection == null)
-            {
-                throw new DatabaseTypeNotFoundException(); 
-            }
+            IConnection dbConnection = _connectionFactory.CreateConnection(databaseTypeToken.GetString(), connectionData);
 
             dbConnection.Connect();
+
             string token = GenerateToken();
             _connections.Add(new ActiveConnection(token, dbConnection));
             

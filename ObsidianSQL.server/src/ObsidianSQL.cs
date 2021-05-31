@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ObsidianSQL.server.db;
+using ObsidianSQL.server.src.db;
 using ObsidianSQL.server.src.controller;
 using ObsidianSQL.server.src.http;
 using Serilog;
@@ -19,13 +19,12 @@ namespace ObsidianSQL.server
         private readonly DatabaseController _dbController;
         private readonly TableController _tableController;
 
-        public ObsidianSQL(string[] prefixes)
+        public ObsidianSQL(string[] prefixes, IConnectionManager connectionManager)
         {
             ConfigureLogger();
             _router = new Router();
             _httpListener = new HttpListener();
             _requestListener = new RequestListener(_httpListener, prefixes, _router);
-            var connectionManager = new ConnectionManager();
             _loginController = new LoginController(connectionManager);
             _dbController = new DatabaseController(connectionManager);
             _tableController = new TableController(connectionManager);

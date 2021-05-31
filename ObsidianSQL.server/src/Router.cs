@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ObsidianSQL.library;
+using ObsidianSQL.server.src;
 using ObsidianSQL.server.src.exceptions;
 using ObsidianSQL.server.src.http;
 
 namespace ObsidianSQL.server
 {
-    class Router
+    class Router : IRouter
     {
         private readonly List<Route> _routes = new();
 

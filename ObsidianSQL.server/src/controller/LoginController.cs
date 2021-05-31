@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
-using ObsidianSQL.server.db;
+using ObsidianSQL.server.src.db;
 using System.Dynamic;
 using ObsidianSQL.server.src.exceptions;
 using Serilog;
@@ -15,9 +15,9 @@ namespace ObsidianSQL.server.src.controller
 {
     public class LoginController
     {
-        private readonly ConnectionManager _connectionManager;
+        private readonly IConnectionManager _connectionManager;
 
-        public LoginController(ConnectionManager con)
+        public LoginController(IConnectionManager con)
         {
             _connectionManager = con;
         }
@@ -29,8 +29,18 @@ namespace ObsidianSQL.server.src.controller
                 throw new MethodNotAllowedException();
             }
 
+            JsonElement connectionData;
+
+            try
+            {
+                connectionData = JsonDocument.Parse(request.HttpBodyContent).RootElement;
+            } catch (JsonException)
+            {
+                throw new BadRequestException();
+            }
+
             dynamic tokenResponse = new ExpandoObject();
-            tokenResponse.token = _connectionManager.CreateConnection(request);
+            tokenResponse.token = _connectionManager.CreateConnection(connectionData);
 
             var json = JsonSerializer.Serialize(tokenResponse);
             return new Response(json, 200);
