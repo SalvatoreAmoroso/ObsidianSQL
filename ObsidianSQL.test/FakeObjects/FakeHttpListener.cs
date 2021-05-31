@@ -38,7 +38,7 @@ namespace ObsidianSQL.test.FakeObjects
 
         public Task<IRequest> WaitForRequest()
         {
-            return new Task<IRequest>(() => _request);
+            return Task.FromResult<IRequest>(_request);
         }
 
         public IResponse GetResponse()

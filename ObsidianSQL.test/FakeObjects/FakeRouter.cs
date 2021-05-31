@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ObsidianSQL.test.FakeObjects
@@ -12,6 +13,7 @@ namespace ObsidianSQL.test.FakeObjects
     class FakeRouter : IRouter
     {
         public IResponse Response { get; set; }
+        public IRequest Request { get; set; }
         public Exception ExceptionToThrow { get; set; }
         public bool ThrowException { get; set; } = false;
 
@@ -19,6 +21,7 @@ namespace ObsidianSQL.test.FakeObjects
 
         public IResponse ManageRequest(IRequest request)
         {
+            Request = request;
             if (ThrowException)
                 throw ExceptionToThrow;
             return Response;
