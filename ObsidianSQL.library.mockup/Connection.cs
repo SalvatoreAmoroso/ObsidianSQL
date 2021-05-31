@@ -8,7 +8,7 @@ namespace ObsidianSQL.library.mockup
 {
     public class Connection : IConnection
     {
-        public List<IDatabase> Databases { get; set; }
+        public List<IDatabase> Databases { get; set; } = new();
         public bool Connected { get; private set; } = false;
         public string ExecutedQuery { get; private set; }
 
@@ -36,11 +36,6 @@ namespace ObsidianSQL.library.mockup
         public bool RemoveDatabase(string database)
         {
             return Databases.RemoveAll(db => db.Name == database) > 0;
-        }
-
-        public Connection()
-        {
-            Databases = new List<IDatabase> { new Database("onlineshop"), new Database("onlinegame") };
         }
     }
 }

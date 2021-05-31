@@ -13,7 +13,7 @@ namespace ObsidianSQL.test.FakeObjects
 {
     class FakeConnectionManager : IConnectionManager
     {
-        public List<ActiveConnection> Connections { get; set; }
+        public List<ActiveConnection> Connections { get; set; } = new();
         private int counter = 0;
 
         public string CreateConnection(JsonElement connectionData)
